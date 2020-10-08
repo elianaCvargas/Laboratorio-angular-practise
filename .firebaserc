@@ -1,0 +1,18 @@
+{
+  "targets": {
+    "saladejuegos-app": {
+      "hosting": {
+        "angular-firebase-crud": [
+          "saladejuegos-app"
+        ]
+      }
+    },
+    "laboratorio-1d6f1": {
+      "hosting": {
+        "angular-firebase-crud": [
+          "laboratorio-1d6f1"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row justify-content-md-center mt20">
+    <h1> Alta pelicula</h1>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-6">
+
+      <form  [formGroup]="formularioGroup">
+        <div class="form-group">
+          <label for="titulo">Título</label>
+          <input type="text" formControlName="titulo" class="form-control" >
+          <small id="emailHelp" class="form-text text-muted">Ingrese nombre de la pelicula</small>
+        </div>
+        <div class="form-group">
+          <label for="tipo">Tipo</label>
+          <select class="form-control" formControlName="tipo">
+            <option>Default select</option>
+          </select>
+          <small  class="form-text text-muted">Seleccione el tipo de pelicula</small>
+        </div>
+
+        <div class="form-group">
+          <label for="fechaEstreno">Fecha estreno</label>
+          <!-- <mat-form-field >
+            <mat-label>Verbose datepicker</mat-label>
+            <input matInput [matDatepicker]="dp" >
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+          </mat-form-field> -->
+          <input type="date" class="form-control" formControlName="fechaEstreno">
+          <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="cantidadPublico">Cantidad público</label>
+          <input type="number" class="form-control" formControlName="cantidadPublico">
+          <small class="form-text text-muted">Cantidad del  publico</small>
+        </div>
+
+        <div class="form-group">
+          <label for="foto">Foto película</label>
+          <input type="file" class="form-control-file" id="fileImg" formControlName="foto" (change)="subirArchivo($event.target.files)">
+          <small class="form-text text-muted">Adjunte una imagen</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+      </form>
+    </div>
+
+  </div>
+</div>
