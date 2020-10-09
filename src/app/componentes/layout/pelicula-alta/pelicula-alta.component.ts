@@ -3,6 +3,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { Pais } from 'src/app/clases/pais';
 import { Pelicula } from 'src/app/clases/pelicula';
 import { PeliculasService } from 'src/app/servicios/peliculas.service';
 
@@ -13,6 +14,7 @@ import { PeliculasService } from 'src/app/servicios/peliculas.service';
 })
 export class PeliculaAltaComponent implements OnInit {
   formularioGroup: FormGroup;
+
   public url: string;
 
   constructor(

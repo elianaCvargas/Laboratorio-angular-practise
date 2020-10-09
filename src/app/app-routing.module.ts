@@ -16,7 +16,7 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', redirectTo: 'Bienvenido', pathMatch: 'full' },
+      { path: '', redirectTo: 'actor/alta', pathMatch: 'full' },
       { path: 'bienvenido', component:  BienvenidoComponent},
       { path: 'busqueda', component:  BusquedaComponent},
       { path: 'actor/listado', component:  ActorListadoComponent},
@@ -24,9 +24,11 @@ const routes: Routes = [
       { path: 'pelicula/tabla', component:  TablaPeliculaComponent},
 //parcial
 // llamar primero a este!!
+
+      // { path: '', redirectTo: 'AltaActor', pathMatch: 'full' },
+      { path: 'actor/alta', component:  ActorAltaComponent},
       { path: 'paisActor', component:  PaisActorComponent},
       { path: 'pais/tabla', component:  TablaPaisesComponent},
-      { path: 'actor/alta', component:  ActorAltaComponent},
 
       { path: 'pelicula/alta', component:  PeliculaAltaComponent},
 

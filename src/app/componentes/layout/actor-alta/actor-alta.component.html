@@ -34,7 +34,7 @@
           <label for="nacionalidad">Nacionalidad</label>
           <select class="form-control" formControlName="nacionalidad" (change)="onChange($event.target.value)">
             <option *ngFor="let pais of listado">
-              {{pais.name}}
+              {{pais.name}} -   {{pais.capital}} -   {{pais.flag}} -  {{pais.region}}
             </option>
           </select>
           <small class="form-text text-muted">Seleccione el nacionalidad</small>
@@ -47,8 +47,9 @@
       </form>
     </div>
 
-    <!-- <div class="col">
-    </div> -->
+    <div class="col">
+      <app-detalle-pais [tarjeta]='pais'></app-detalle-pais>
+    </div>
 
   </div>
 </div>

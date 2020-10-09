@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
@@ -17,8 +17,9 @@ export class ActorAltaComponent implements OnInit {
   formularioGroup: FormGroup;
   public url: string;
   @Input() listado: Pais [];
+  public pais: Pais;
 
-
+  @Output() enviarPais: EventEmitter<Pais> = new EventEmitter();
   constructor(
     public dialog: MatDialog,
     public builder: FormBuilder,
@@ -87,13 +88,9 @@ export class ActorAltaComponent implements OnInit {
   }
 
   onChange(pais){
-    console.log("this")
-
-      // const dialog = this.dialog.open(DetalleTarjetaComponent, {
-      //   maxWidth: '400px',
-      //   data: pais,
-      // });
-
+    var particion = pais.split('-');
+    const envio = new Pais(particion[0], particion[1], particion[2], particion[3]);
+    this.enviarPais.emit(envio);
   }
 
 }

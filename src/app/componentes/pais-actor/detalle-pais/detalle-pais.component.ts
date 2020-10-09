@@ -13,5 +13,4 @@ export class DetallePaisComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
 }
