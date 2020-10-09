@@ -7,17 +7,23 @@ import {
 import { AngularFireStorage } from '@angular/fire/storage';
 import { observable, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { Actor } from '../clases/actor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeliculasService {
 
+
   constructor(private firestore: AngularFirestore, private firestorage: AngularFireStorage)
   { }
 
   create_NewMovie(pelicula: any): Promise<DocumentReference> {
     return this.firestore.collection('peliculas').add({ ...pelicula });
+  }
+
+  create_NewActor(actor: Actor): Promise<DocumentReference> {
+    return this.firestore.collection('actores').add({ ...actor });
   }
 
   upload_File(fileName: string, file: any)  {

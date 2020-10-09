@@ -1,0 +1,13 @@
+<h1 mat-dialog-title class="title-dialog">
+  {{ pelicula.nombre }}
+</h1>
+<hr>
+<div mat-dialog-content>
+  <p>fechaEstreno: {{pelicula.fechaEstreno | date:'dd/MM/yyyy'}}</p>
+  <p>cantidadPublico: {{pelicula.cantidadPublico}}</p>
+  <p>fotoPelicula: {{tipoPeliculaLabels.get(pelicula.tipo)}}</p>
+</div>
+<hr>
+<div mat-dialog-actions  id="botonesCentrados">
+  <button mat-raised-button class="btn sid-btn-primary btn-round" style="margin-bottom: 20px;" color="warn" (click)="onClose()">Cerrar</button>
+</div>

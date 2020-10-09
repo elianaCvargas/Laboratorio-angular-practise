@@ -1,1 +1,54 @@
-<p>actor-alta works!</p>
+<div class="container">
+  <div class="row justify-content-md-center mt20">
+    <h1> Alta Actor</h1>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-6">
+
+      <form [formGroup]="formularioGroup">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" formControlName="nombre" class="form-control">
+          <small class="form-text text-muted">Ingrese nombre</small>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" formControlName="apellido" class="form-control">
+          <small class="form-text text-muted">Ingrese apellido</small>
+        </div>
+
+        <div class="form-group">
+          <label for="sexo">Sexo</label>
+          <input type="text" formControlName="sexo" class="form-control">
+          <small class="form-text text-muted">Ingrese sexo</small>
+        </div>
+
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha nacimiento</label>
+          <input type="date" class="form-control" formControlName="fechaNacimiento">
+          <small class="form-text text-muted">Ingrese fecha de nacimiento</small>
+        </div>
+
+        <div class="form-group" >
+          <label for="nacionalidad">Nacionalidad</label>
+          <select class="form-control" formControlName="nacionalidad" (change)="onChange($event.target.value)">
+            <option *ngFor="let pais of listado">
+              {{pais.name}}
+            </option>
+          </select>
+          <small class="form-text text-muted">Seleccione el nacionalidad</small>
+        </div>
+
+        <!-- <app-tabla-paises [listado]='listadoRecibido'></app-tabla-paises> -->
+
+        <button [disabled]="!formularioGroup.valid" type="submit" class="btn btn-primary"
+          (click)="onSubmit()">Submit</button>
+      </form>
+    </div>
+
+    <!-- <div class="col">
+    </div> -->
+
+  </div>
+</div>

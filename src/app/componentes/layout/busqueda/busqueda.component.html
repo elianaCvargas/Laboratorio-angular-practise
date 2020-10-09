@@ -1,1 +1,26 @@
-<p>busqueda works!</p>
+<!-- este es mi control, el que carga los datos -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button type="button" (click)="toogleVista()">{{ verComoTabla ? 'Ver grilla' : 'Ver tabla' }}</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-tabla-pelicula *ngIf="verComoTabla" [listado]='listadoRecibido'></app-tabla-pelicula>
+      <app-tarjetas *ngIf="!verComoTabla" [tarjetas]='listadoRecibido'></app-tarjetas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-4 col-sm-12">
+      <app-detalle></app-detalle>
+    </div>
+    <div class="col-xl-4 col-sm-12">
+      <app-detalle></app-detalle>
+    </div>
+    <div class="col-xl-4 col-sm-12">
+      <app-detalle></app-detalle>
+    </div>
+  </div>
+
+</div>

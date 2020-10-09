@@ -19,6 +19,17 @@ import { PeliculaListadoComponent } from './componentes/layout/pelicula-listado/
 import { TablaPeliculaComponent } from './componentes/common/tabla-pelicula/tabla-pelicula.component';
 import { BusquedaComponent } from './componentes/layout/busqueda/busqueda.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {DemoMaterialModule} from './material-module';
+import { DetalleComponent } from './componentes/layout/busqueda/detalle/detalle.component';
+import { TarjetasComponent } from './componentes/common/tarjetas/tarjetas.component';
+import { TarjetaComponent } from './componentes/common/tarjetas/tarjeta/tarjeta.component';
+import { DetalleTarjetaComponent } from './componentes/common/tarjetas/tarjeta/detalle-tarjeta/detalle-tarjeta.component';
+import { TablaPaisesComponent } from './componentes/common/tabla-paises/tabla-paises.component';
+import { AllServicesService } from './servicios/all-services.service';
+import { HttpClientModule } from '@angular/common/http';
+import { PaisActorComponent } from './componentes/pais-actor/pais-actor.component';
+import { DetallePaisComponent } from './componentes/pais-actor/detalle-pais/detalle-pais.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +41,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ActorAltaComponent,
     ActorListadoComponent,
     PeliculaListadoComponent,
-    TablaPeliculaComponent
+    TablaPeliculaComponent,
+    DetalleComponent,
+    TarjetasComponent,
+    TarjetaComponent,
+    DetalleTarjetaComponent,
+    TablaPaisesComponent,
+    PaisActorComponent,
+    DetallePaisComponent,
+
   ],
   imports: [
     MatDatepickerModule,
@@ -45,10 +64,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AngularFireAuthModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
-
-
+    MatFormFieldModule,
+    DemoMaterialModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AllServicesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,41 @@
+
+  <div class="container">
+    <div class="row justify-content-md-center mt20">
+      <h1> Listado de Paises</h1>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-12">
+        <div class="mat-elevation-z8">
+          <div class="table-responsive">
+            <table class="table" >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Capital</th>
+                  <th scope="col">Region</th>
+                  <th scope="col">Flag</th>
+                </tr>
+              </thead>
+              <tbody *ngFor='let element of listado; let i = index'>
+                <tr>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{ element.name}}</td>
+                  <td>{{ element.capital}}</td>
+                  <td>{{ element.region}}</td>
+                  <td>
+                    <img src="{{element.flag}}" style="height: 50px; width: 50px;">
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
