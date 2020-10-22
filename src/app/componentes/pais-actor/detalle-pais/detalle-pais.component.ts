@@ -7,10 +7,16 @@ import { Pais } from 'src/app/clases/pais';
   styleUrls: ['./detalle-pais.component.scss']
 })
 export class DetallePaisComponent implements OnInit {
-  @Input() tarjeta: Pais;
+   @Input() tarjeta: Pais;
+  // tarjeta:Pais;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  // tomarPais(pais:Pais)
+  // {
+  //   this.tarjeta = pais;
+  // }
 }

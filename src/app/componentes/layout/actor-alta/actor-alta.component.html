@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row justify-content-md-center mt20">
+  <!-- <div class="row justify-content-md-center mt20">
     <h1> Alta Actor</h1>
-  </div>
+  </div> -->
   <div class="row justify-content-md-center">
     <div class="col-6">
 
@@ -40,16 +40,11 @@
           <small class="form-text text-muted">Seleccione el nacionalidad</small>
         </div>
 
-        <!-- <app-tabla-paises [listado]='listadoRecibido'></app-tabla-paises> -->
 
         <button [disabled]="!formularioGroup.valid" type="submit" class="btn btn-primary"
           (click)="onSubmit()">Submit</button>
       </form>
     </div>
-
-    <div class="col">
-      <app-detalle-pais [tarjeta]='pais'></app-detalle-pais>
-    </div>
-
+    <div class="col-6">  <app-tabla-paises></app-tabla-paises> </div>
   </div>
 </div>

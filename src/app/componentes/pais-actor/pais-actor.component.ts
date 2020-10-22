@@ -9,7 +9,7 @@ import { AllServicesService } from 'src/app/servicios/all-services.service';
 })
 export class PaisActorComponent implements OnInit {
   listadoRecibido: Pais[];
-
+  pais: Pais;
   constructor(private paisService: AllServicesService) {
     this.cargarUsuarios();
   }
@@ -38,5 +38,10 @@ export class PaisActorComponent implements OnInit {
     .subscribe((data: Pais [] )=> {
       this.listadoRecibido = data;
     });
+  }
+
+  tomarPais(data)
+  {
+    this.pais= data;
   }
 }

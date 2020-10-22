@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black headerNav">
+  <!-- <div>
+    <img src="./../../../assets/imagenes/gaming_joystick_01_10_01_game_video_joystick_computer_contour_play-512.png"
+      width="75px" />
+  </div> -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/Juegos" routerLinkActive="active-link">Games <span
+            class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/Principal/QuienSoy" routerLinkActive="active-link">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/Ranking/Listado" routerLinkActive="active-link">Ranking</a>
+      </li>
+      <!-- <li *ngIf="this.userIsLogged" class="nav-item active">
+        <a class="nav-link" routerLink="/Estadisticas" routerLinkActive="active-link">Estadisticas</a>
+      </li> -->
+      <li class="nav-item">
+        <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+      </li>
+
+    </ul>
+
+  </div>
+  <div>
+    <ul class="navbar-nav loginNavMine" >
+      <li  class="nav-item active">
+        <a *ngIf="!this.userIsLogged" class="nav-link " routerLink="/Principal/Login" routerLinkActive="active-link">Login</a>
+        <a href="#" *ngIf="this.userIsLogged" class="nav-link " (click)="logout()">Logout</a>
+
+      </li>
+    </ul>
+  </div>
+</nav>
+

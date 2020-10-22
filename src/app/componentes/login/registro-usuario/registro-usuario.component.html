@@ -1,0 +1,113 @@
+<div class="card-header headerC">
+  <h3>Registro</h3>
+</div>
+<form [formGroup]="userGroup">
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fa fa-user"></i></span>
+    </div>
+    <input type="text" class="form-control" placeholder="nombre" formControlName="nombre">
+    <div *ngIf="nombreControl.errors">
+      <div *ngIf="nombreControl.errors.required &&
+        (nombreControl.dirty || nombreControl.touched)">
+        <br>
+        <p style="color:red;font-size: 12px;">Debe ingresar un nombre</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fa fa-user"></i></span>
+    </div>
+    <input type="text" class="form-control" placeholder="apellido" formControlName="apellido">
+    <div *ngIf="apellidoControl.errors">
+      <div *ngIf="apellidoControl.errors.required &&
+        (apellidoControl.dirty || apellidoControl.touched)">
+        <br>
+        <p style="color:red;font-size: 12px;">Por favor escriba su apellido</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fa fa-send-o"></i></span>
+    </div>
+    <input type="text" class="form-control" placeholder="email" formControlName="email">
+    <div *ngIf="email.errors">
+      <div *ngIf="email.errors.required &&
+        (email.dirty || email.touched)">
+        <br>
+        <p style="color:red;font-size: 12px;">Debe ingresar un email</p>
+      </div>
+    </div>
+    <div *ngIf="email.errors">
+      <div *ngIf="email.errors.email &&
+        (email.dirty || email.touched)">
+        <br>
+        <p style="color:red;font-size: 12px;">Debe ingresar un correo electrónico válido</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fa fa-key"></i></span>
+    </div>
+    <input type="password" class="form-control" placeholder="password" formControlName="password1"
+      (change)="onPasswordChange()">
+    <div *ngIf="password1.errors">
+      <div *ngIf="password1.errors.required &&
+        (password1.dirty || password1.touched)">
+        <br>
+        <p style="color:red;font-size: 12px;">Debe ingresar una contraseña</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fa fa-key"></i></span>
+    </div>
+    <input type="password" class="form-control" placeholder="password" formControlName="password2"
+      (change)="onPasswordChange()">
+    <div class="container">
+      <div class="row">
+        <div *ngIf="password2.errors">
+          <div *ngIf="password2.errors.passwordNotMatch &&
+            (password2.dirty || password2.touched || password1.dirty || password1.touched)">
+            <p style="color:red;font-size: 12px;">Las contraseñas no corresponden</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <div *ngIf="(password1.errors && password1.errors.minlength && (password1.dirty || password1.touched)) ||
+            password2.errors && password2.errors.minLength && (password2.dirty || password2.touched)">
+            <p style="color:red;font-size: 12px;">La contraseña debe contener al menos 6 letras</p>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="password2.errors">
+        <div *ngIf="password2.errors.required &&
+        (password2.dirty || password2.touched)">
+          <br>
+          <p style="color:red;font-size: 12px;">Debe confirmar la contraseña</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div class="form-group" *ngIf="this.isRegistered">
+    <p style="color: #FFC312;font-size: 20px;">Se ha registrado con éxito!</p>
+  </div> -->
+
+  <div class="form-group">
+    <input [disabled]="!userGroup.valid" type="submit" class="btn float-right login_btn"
+      (click)="onSubmit()" [formGroup]="userGroup">
+  </div>
+
+
+
+</form>

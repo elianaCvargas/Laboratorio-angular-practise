@@ -20,6 +20,7 @@ export class ActorAltaComponent implements OnInit {
   public pais: Pais;
 
   @Output() enviarPais: EventEmitter<Pais> = new EventEmitter();
+
   constructor(
     public dialog: MatDialog,
     public builder: FormBuilder,

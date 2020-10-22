@@ -16,7 +16,7 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', redirectTo: 'actor/alta', pathMatch: 'full' },
+      { path: '', redirectTo: 'paisActor', pathMatch: 'full' },
       { path: 'bienvenido', component:  BienvenidoComponent},
       { path: 'busqueda', component:  BusquedaComponent},
       { path: 'actor/listado', component:  ActorListadoComponent},
