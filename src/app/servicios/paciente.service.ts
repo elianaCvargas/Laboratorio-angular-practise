@@ -20,7 +20,9 @@ export class PacienteService {
 
 
   create_paciente(paciente: Paciente) {
-    return this.firestore.collection('pacientes').add({ ...paciente });
+    return this.firestore.collection('pacientes').add({ ...paciente })
+    .then((data) => { console.log(data)})
+    .catch((data) => { console.log(data)});
   }
 
 

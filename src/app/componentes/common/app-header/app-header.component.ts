@@ -19,7 +19,6 @@ export class AppHeaderComponent implements OnInit {
   }
 
   logout() {
-    this.userIsLogged = false;
     localStorage.removeItem("isLogged");
     this.route.navigate(['/login']);
   }
