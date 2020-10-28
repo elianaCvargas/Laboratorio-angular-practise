@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { AvisoDialogModel, CartelInformeComponent } from '../common/cartel-informe/cartel-informe.component';
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 
 @Component({
@@ -13,11 +15,10 @@ export class LoginComponent implements OnInit {
 
   public username;
   public password;
-  animal;
   userGroup: FormGroup;
 
   constructor(private route: Router
-    // , private authService: AuthService
+    , private authService: AuthService
     ,private dialog: MatDialog) {
 
   }
@@ -26,7 +27,6 @@ export class LoginComponent implements OnInit {
     this.userGroup = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
-      // passwordRepeat: new FormControl('')
     });
   }
 
@@ -48,16 +48,35 @@ export class LoginComponent implements OnInit {
   {
     this.username = this.userGroup.get('username').value;
     this.password =  this.userGroup.get('password').value;
-    // this.authService.login(this.username, this.password).then((succes) => {
+    this.authService.login(this.username, this.password).then((response) => {
+      if(response.user.emailVerified)
+      {
+        localStorage.setItem("isLogged", "true");
+        this.route.navigate(['turnos-paciente']);
+      }
+      else {
+        this.showError("Requiere verificación del email.");
+      }
+    }).catch((error) => {
+      this.showError(error);
+    });
+  }
 
-    // }).catch((error) => {
-    //   const dialogData = new AvisoDialogModel('Ha ocurrido un problema!', error);
-    //     this.dialog.open(CartelInformeComponent, {
-    //       maxWidth: '400px',
-    //       data: dialogData,
-    //     });
-    // });
+  public showError(error: string): void {
+    console.log(error);
+    const dialogData = new AvisoDialogModel('Ha ocurrido un problema!', error);
+    this.dialog.open(CartelInformeComponent, {
+      maxWidth: '400px',
+      data: dialogData,
+    });
+  }
 
+  public showSuccess(success: string): void {
+    const dialogData = new AvisoDialogModel('Información', success);
+    this.dialog.open(CartelInformeComponent, {
+      maxWidth: '400px',
+      data: dialogData,
+    });
   }
 
   registrarse()

@@ -14,7 +14,6 @@ export class PacienteService {
 
   constructor(
     private firestore: AngularFirestore,
-    private firestorage: AngularFireStorage,
     private route: Router,
     public dialog: MatDialog
   ) {}
@@ -25,14 +24,5 @@ export class PacienteService {
   }
 
 
-  upload_File(fileName: string, file: any)  {
-    var storageRef = this.firestorage.ref('images');
-    var ref = storageRef.child(fileName);
-    return this.firestorage.upload(fileName, file[0]);
-  }
-
-  public referenciaCloudStorage(nombreArchivo: string) {
-    return this.firestorage.ref(nombreArchivo);
-  }
 
 }

@@ -12,13 +12,16 @@ export class AppHeaderComponent implements OnInit {
   constructor(private route: Router) { }
 
   ngOnInit() {
-    this.userIsLogged = localStorage.getItem("isLogged") != undefined ? true : false;
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem("isLogged") != undefined;
   }
 
   logout() {
     this.userIsLogged = false;
     localStorage.removeItem("isLogged");
-    this.route.navigate(['/Juegos']);
+    this.route.navigate(['/login']);
   }
 
 }

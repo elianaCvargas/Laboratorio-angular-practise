@@ -11,11 +11,9 @@ input[type=text], input[type=password] {
 button {
   background-color: #4CAF50;
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  padding: 6px 9px;
   border: none;
   cursor: pointer;
-  width: 100%;
 }
 
 /* Extra styles for the cancel button */
@@ -157,4 +155,95 @@ color: white;
 
 .links a{
 margin-left: 4px;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // For form validation feedback
+  align-items: stretch;
+  width: 100%;
+
+  > .form-control,
+  > .form-control-plaintext,
+  > .custom-select,
+  > .custom-file {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+
+    // + .form-control,
+    // + .custom-select,
+    // + .custom-file {
+    //   margin-left: -$input-border-width;
+    // }
+  }
+
+  // Bring the "active" form control to the top of surrounding elements
+  > .form-control:focus,
+  > .custom-select:focus,
+  > .custom-file .custom-file-input:focus ~ .custom-file-label {
+    z-index: 3;
+  }
+
+  // Bring the custom file input above the label
+  > .custom-file .custom-file-input:focus {
+    z-index: 4;
+  }
+
+  // > .form-control,
+  // > .custom-select {
+  //   &:not(:last-child) { @include border-right-radius(0); }
+  //   &:not(:first-child) { @include border-left-radius(0); }
+  // }
+
+
+  > .custom-file {
+    display: flex;
+    align-items: center;
+
+    // &:not(:last-child) .custom-file-label,
+    // &:not(:last-child) .custom-file-label::after { @include border-right-radius(0); }
+    // &:not(:first-child) .custom-file-label { @include border-left-radius(0); }
+  }
+}
+
+.input-group-prepend span{
+  width: 50px;
+  background-color: #FFC312;
+  color: black;
+  border:0 !important;
+  }
+
+  input:focus{
+  outline: 0 0 0 0  !important;
+  box-shadow: 0 0 0 0 !important;
+
+  }
+
+  .remember{
+  color: white;
+  }
+
+  .remember input
+  {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  margin-right: 5px;
+  }
+
+  .ddl-tipo-usuario {
+    width: 440px;
+  }
+.hidden {
+  display: none;
+}
+.file-name {
+  margin-right: 15px;
+}
+.btn-image {
+  text-align: right;
 }

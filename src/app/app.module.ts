@@ -30,6 +30,13 @@ import { AllServicesService } from './servicios/all-services.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PaisActorComponent } from './componentes/pais-actor/pais-actor.component';
 import { DetallePaisComponent } from './componentes/pais-actor/detalle-pais/detalle-pais.component';
+import { AppHeaderComponent } from './componentes/common/app-header/app-header.component';
+import { EmptyLayoutAltaActorComponent } from './componentes/empty-layout-alta-actor/empty-layout-alta-actor.component';
+import { RegistroUsuarioComponent } from './componentes/login/registro-usuario/registro-usuario.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { FooterComponent } from './componentes/common/footer/footer.component';
+import { CartelInformeComponent } from './componentes/common/cartel-informe/cartel-informe.component';
+import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +56,13 @@ import { DetallePaisComponent } from './componentes/pais-actor/detalle-pais/deta
     TablaPaisesComponent,
     PaisActorComponent,
     DetallePaisComponent,
+    AppHeaderComponent,
+    EmptyLayoutAltaActorComponent,
+    RegistroUsuarioComponent,
+    LoginComponent,
+    FooterComponent,
+    CartelInformeComponent,
+    TurnosPacienteComponent,
 
   ],
   imports: [

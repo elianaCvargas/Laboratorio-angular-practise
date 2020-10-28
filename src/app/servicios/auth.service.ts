@@ -21,11 +21,7 @@ export class AuthService {
     return this.auth
       .signInWithEmailAndPassword(email, pass)
       .then((res) => {
-        if (res.user.emailVerified) {
-          localStorage.setItem('isLogged', 'succes');
-          localStorage.setItem('email', res.user.email);
-          console.log('succes');
-        }
+        return res;
       })
       .catch((err) => {
         if (err.code == 'auth/wrong-password') {
