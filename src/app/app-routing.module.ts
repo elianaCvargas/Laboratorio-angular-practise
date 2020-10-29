@@ -14,6 +14,7 @@ import { PaisActorComponent } from './componentes/pais-actor/pais-actor.componen
 import { RegistroUsuarioComponent } from './componentes/login/registro-usuario/registro-usuario.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
+import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'registro', component: RegistroUsuarioComponent },
       { path: 'turnos-paciente', component: TurnosPacienteComponent },
+      { path: 'lista-usuarios', component: ListaUsuariosComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
   },

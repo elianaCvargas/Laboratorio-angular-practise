@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TipoUsuario } from 'src/app/enumClases/tipo-usuario';
+import { TipoUsuario, TipoUsuarioLabels } from 'src/app/enumClases/tipo-usuario';
 
 @Component({
   selector: 'app-app-header',
@@ -10,6 +10,7 @@ import { TipoUsuario } from 'src/app/enumClases/tipo-usuario';
 export class AppHeaderComponent implements OnInit {
   public tipoUsuarioLogged;
   public tipoUsuarioEnum = TipoUsuario;
+  public tipoUsuarioLabel = TipoUsuarioLabels;
   constructor(private route: Router) { }
 
   ngOnInit() {

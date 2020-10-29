@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Profesional } from 'src/app/clases/profesional';
+import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario, TipoUsuarioLabels } from 'src/app/enumClases/tipo-usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -28,13 +29,17 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private usuarioService: UsuarioService,
     private dialog: MatDialog
-  ) {}
+  ) {
+    // this.dummy();
+  }
 
   ngOnInit() {
     this.userGroup = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
     });
+
+
   }
 
   openDialog(): void {
@@ -53,6 +58,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.username = this.userGroup.get('username').value;
     this.password = this.userGroup.get('password').value;
+
 
     this.authService
       .login(this.username, this.password)
@@ -79,6 +85,7 @@ export class LoginComponent implements OnInit {
                 this.route.navigate(['lista-usuarios']);
                 break;
               case TipoUsuario.Administrador:
+                this.route.navigate(['lista-usuarios']);
                 console.log(usuario);
 
                 break;
@@ -114,6 +121,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  registrarse() {}
+  dummy() {
+    this.usuarioService.create_admin(new Usuario("Admin", "Admin", "Admin", TipoUsuario.Administrador)).then
+    (
+      () => {console.log("success");}
+    ).catch((err) => {
+      console.log(err);
+    });
+  }
+
   recuperarContra() {}
 }

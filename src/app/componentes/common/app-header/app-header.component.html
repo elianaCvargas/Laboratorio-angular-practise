@@ -6,17 +6,17 @@
   </button>
   <div *ngIf="isLoggedIn()" class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
+      <li *ngIf="tipoUsuarioLogged && (tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Paciente) || tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Paciente))" class="nav-item active">
         <a class="nav-link" routerLink="/turnos-paciente" routerLinkActive="active-link">Turnos<span
             class="sr-only">(current)</span></a>
       </li>
 
       <!-- solo admin: seccion de aprobacion de profesionales -->
-      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioEnum.Administrador" class="nav-item active">
+      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Administrador)" class="nav-item active">
         <a class="nav-link" routerLink="/Principal/QuienSoy" routerLinkActive="active-link">Gestión</a>
       </li>
       <!-- solo admin: seccion alta de administradores -->
-      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioEnum.Administrador" class="nav-item active">
+      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Administrador)" class="nav-item active">
         <a class="nav-link" routerLink="/Ranking/Listado" routerLinkActive="active-link">Administradores</a>
       </li>
 

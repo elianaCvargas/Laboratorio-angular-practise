@@ -9,9 +9,6 @@ import { Paciente } from '../clases/paciente';
   providedIn: 'root'
 })
 export class PacienteService {
-  public title: string;
-  public message: string;
-
   constructor(
     private firestore: AngularFirestore,
     private route: Router,

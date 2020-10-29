@@ -37,6 +37,8 @@ import { LoginComponent } from './componentes/login/login.component';
 import { FooterComponent } from './componentes/common/footer/footer.component';
 import { CartelInformeComponent } from './componentes/common/cartel-informe/cartel-informe.component';
 import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
+import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
+import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-pa
     FooterComponent,
     CartelInformeComponent,
     TurnosPacienteComponent,
+    ListaUsuariosComponent,
+    AltaAdminComponent,
 
   ],
   imports: [
