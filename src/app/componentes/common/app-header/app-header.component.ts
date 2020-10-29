@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TipoUsuario } from 'src/app/enumClases/tipo-usuario';
 
 @Component({
   selector: 'app-app-header',
@@ -7,14 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent implements OnInit {
-
-  userIsLogged: boolean;
+  public tipoUsuarioLogged;
+  public tipoUsuarioEnum = TipoUsuario;
   constructor(private route: Router) { }
 
   ngOnInit() {
   }
 
   isLoggedIn(): boolean {
+    this.tipoUsuarioLogged = localStorage.getItem("tipoUsuario");
     return localStorage.getItem("isLogged") != undefined;
   }
 

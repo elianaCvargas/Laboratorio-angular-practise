@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,6 +14,11 @@ import {
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { Paciente } from 'src/app/clases/paciente';
+import { Profesional } from 'src/app/clases/profesional';
+import {
+  TipoEspecialidad,
+  TipoEspecialidadLabels,
+} from 'src/app/enumClases/especialidad-profesional';
 import {
   TipoUsuario,
   TipoUsuarioLabels,
@@ -21,6 +26,8 @@ import {
 import { AuthService } from 'src/app/servicios/auth.service';
 import { FileService } from 'src/app/servicios/file.service';
 import { PacienteService } from 'src/app/servicios/paciente.service';
+import { ProfesionalService } from 'src/app/servicios/profesional.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 import {
   AvisoDialogModel,
   CartelInformeComponent,
@@ -35,61 +42,27 @@ export class RegistroUsuarioComponent implements OnInit {
   public username;
   userGroup: FormGroup;
   public isRegistered: boolean = false;
-  public tipoUsuario: TipoUsuario;
+  public tipoUsuarioSeleccionado: TipoUsuario;
+
   public tiposUsuariosCombo: Array<TipoUsuario>;
-  public tiposUsuarios = TipoUsuario;
+  public tiposUsuariosEnum = TipoUsuario;
   public tipoUsuarioLabel = TipoUsuarioLabels;
   public filesToUpload: Array<File> = [];
   public url: string;
+  public especialidadesCmb: TipoEspecialidad[];
+  public tipoEspecialidadLabel = TipoEspecialidadLabels;
 
-  @ViewChild('checkbox')
-  public mulObj;
-
-  public especialidades: { [key: string]: Object }[] = [
-    { Name: 'Australia', Code: 'AU' },
-    { Name: 'Bermuda', Code: 'BM' },
-    { Name: 'Canada', Code: 'CA' },
-    { Name: 'Cameroon', Code: 'CM' },
-    { Name: 'Denmark', Code: 'DK' },
-    { Name: 'France', Code: 'FR' },
-    { Name: 'Finland', Code: 'FI' },
-    { Name: 'Germany', Code: 'DE' },
-    { Name: 'Greenland', Code: 'GL' },
-    { Name: 'Hong Kong', Code: 'HK' },
-    { Name: 'India', Code: 'IN' },
-    { Name: 'Italy', Code: 'IT' },
-    { Name: 'Japan', Code: 'JP' },
-    { Name: 'Mexico', Code: 'MX' },
-    { Name: 'Norway', Code: 'NO' },
-    { Name: 'Poland', Code: 'PL' },
-    { Name: 'Switzerland', Code: 'CH' },
-    { Name: 'United Kingdom', Code: 'GB' },
-    { Name: 'United States', Code: 'US' },
-  ];
-
-  // map the groupBy field with category column
-  public checkFields: Object = { text: 'Name', value: 'Code' };
-  // set the placeholder to the MultiSelect input
-  public checkWaterMark: string = 'Select countries';
-  // set the MultiSelect popup height
-  public popHeight: string = '350px';
-
-  public mode: string;
-  public filterPlaceholder: string;
-
-  ngOnInit() {
-    this.mode = 'CheckBox';
-    this.filterPlaceholder = 'Search countries';
-  }
+  ngOnInit() {}
 
   constructor(
     public dialogRef: MatDialogRef<RegistroUsuarioComponent>,
     public dialog: MatDialog,
     private authService: AuthService,
-    private pacienteService: PacienteService,
+    private usuarioService: UsuarioService,
     private fileService: FileService,
     public builder: FormBuilder,
-    private route: Router
+    private route: Router,
+    private profesionalService: ProfesionalService
   ) {
     this.tiposUsuariosCombo = [TipoUsuario.Profesional, TipoUsuario.Paciente];
 
@@ -106,7 +79,14 @@ export class RegistroUsuarioComponent implements OnInit {
           Validators.minLength(6),
         ],
       ],
+      especialidades: [[], this.validarEspecialidad.bind(this)],
     });
+
+    this.especialidadesCmb = [
+      TipoEspecialidad.Cirugia,
+      TipoEspecialidad.Dentista,
+      TipoEspecialidad.Oculista,
+    ];
   }
 
   onNoClick(): void {
@@ -114,30 +94,28 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
   onSubmit() {
-    if (
-      this.filesToUpload.length == 0 ||
-      this.filesToUpload.length == 1 ||
-      this.filesToUpload.length >= 3
-    ) {
-      this.showError('Por favor adgunte dos imagenes');
-    } else {
-      if (this.tipoUsuario !== undefined) {
-        this.filesToUpload;
-        this.authService
-          .register(
-            this.userGroup.controls.email.value,
-            this.userGroup.controls.password1.value
-          )
-          .then((res) => {
-            if (this.tipoUsuario === TipoUsuario.Paciente) {
-              this.regitrarPaciente();
-            } else {
+    if (this.tipoUsuarioSeleccionado !== undefined) {
+      this.filesToUpload;
+      this.authService
+        .register(
+          this.userGroup.controls.email.value,
+          this.userGroup.controls.password1.value
+        )
+        .then((res) => {
+          if (this.tipoUsuarioSeleccionado === TipoUsuario.Paciente) {
+            if (this.filesToUpload.length < 2) {
+              this.showError('Debe subir dos imagenes');
+              return;
             }
-          })
-          .catch((error) => this.showError(error));
-      } else {
-        this.showError('Debe seleccionar un tipo de usuario');
-      }
+
+            this.regitrarPaciente();
+          } else {
+            this.registrarProfesional();
+          }
+        })
+        .catch((error) => this.showError(error));
+    } else {
+      this.showError('Debe seleccionar un tipo de usuario');
     }
   }
 
@@ -160,11 +138,17 @@ export class RegistroUsuarioComponent implements OnInit {
 
   public showSuccessOnlyRegister(success: string): void {
     const dialogData = new AvisoDialogModel('Información', success);
-    this.dialog.open(CartelInformeComponent, {
+    const dialog = this.dialog.open(CartelInformeComponent, {
       maxWidth: '400px',
       data: dialogData,
     });
-    this.route.navigate(['/login']);
+
+    dialog.afterClosed().subscribe(() => {
+      this.dialogRef.close();
+      this.dialogRef.afterClosed().subscribe(() => {
+        this.route.navigate(['/login']);
+      });
+    });
   }
 
   private passwordMatcher1(control: FormControl): { [s: string]: boolean } {
@@ -173,6 +157,17 @@ export class RegistroUsuarioComponent implements OnInit {
       control.value !== this.userGroup.controls.password1.value
     ) {
       return { passwordNotMatch: true };
+    }
+    return null;
+  }
+
+  private validarEspecialidad(control: FormControl): { [s: string]: boolean } {
+    if (
+      this.userGroup &&
+      this.tipoUsuarioSeleccionado == TipoUsuario.Profesional &&
+      control.value.length == 0
+    ) {
+      return { especialidadIsNotValid: true };
     }
     return null;
   }
@@ -197,6 +192,10 @@ export class RegistroUsuarioComponent implements OnInit {
     return this.userGroup.controls['apellido'];
   }
 
+  get especialidadesControl(): AbstractControl {
+    return this.userGroup.controls['especialidades'];
+  }
+
   onPasswordChange() {
     if (
       this.userGroup.controls.password1.value ===
@@ -209,25 +208,21 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    if (files !== undefined) {
-      // if ( files.length <= 2) {
-      for (let i = 0; i < files.length; i++) {
-        if (
-          files[i].type === 'image/png' ||
-          files[i].type === 'image/gif' ||
-          files[i].type === 'image/jpeg'
-        ) {
-          this.filesToUpload.push(files[i]);
-        } else {
-          this.showError('Solo puede subir imagenes');
-        }
-      }
-      // }
-      // else{
-      //   this.showError('Debe subir dos imagenes');
-      // }
-    } else {
+    if (!files) {
       this.showError('Adjunte las imagenes, por favor');
+      return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      if (
+        files[i].type === 'image/png' ||
+        files[i].type === 'image/gif' ||
+        files[i].type === 'image/jpeg'
+      ) {
+        this.filesToUpload.push(files[i]);
+      } else {
+        this.showError('Solo puede subir imagenes');
+      }
     }
   }
 
@@ -238,9 +233,9 @@ export class RegistroUsuarioComponent implements OnInit {
 
   regitrarPaciente() {
     var nuevoPaciente = new Paciente(
-      this.userGroup.controls.nombre.value,
-      this.userGroup.controls.apellido.value,
-      this.userGroup.controls.email.value,
+      this.nombreControl.value,
+      this.apellidoControl.value,
+      this.email.value,
       '',
       ''
     );
@@ -251,8 +246,8 @@ export class RegistroUsuarioComponent implements OnInit {
           (url2) => {
             nuevoPaciente.imagenDos = url2;
             //alta paciente
-            this.pacienteService
-              .create_paciente(nuevoPaciente)
+            this.usuarioService
+              .create_usuario(nuevoPaciente)
               .then(() => {
                 this.showSuccessOnlyRegister('Paciente registrado con éxito!');
               })
@@ -265,18 +260,21 @@ export class RegistroUsuarioComponent implements OnInit {
     );
   }
 
-  registrarProfesional() {}
+  registrarProfesional() {
+    var nuevoPprofesional = new Profesional(
+      this.userGroup.controls.nombre.value,
+      this.userGroup.controls.apellido.value,
+      this.userGroup.controls.email.value,
+      this.especialidadesControl.value
+    );
 
-  // public onChange(): void {
-  //   // enable or disable the select all in Multiselect based on CheckBox checked state
-  //   this.mulObj.showSelectAll = this.checkboxObj.checked;
-  // }
-  // public onChangeDrop(): void {
-  //   // enable or disable the dropdown button in Multiselect based on CheckBox checked state
-  //   this.mulObj.showDropDownIcon = this.dropdownObj.checked;
-  // }
-  // public onChangeReorder(): void {
-  //   // enable or disable the list reorder in Multiselect based on CheckBox checked state
-  //   this.mulObj.enableSelectionOrder = this.reorderObj.checked;
-  // }
+    this.usuarioService.create_usuario(nuevoPprofesional)
+    .then(() => {
+        this.showSuccessOnlyRegister("Profesional registrado con éxito.");
+    })
+    .catch((error) => {
+      this.showError(error);
+    });
+
+  }
 }

@@ -10,16 +10,16 @@
         <a class="nav-link" routerLink="/turnos-paciente" routerLinkActive="active-link">Turnos<span
             class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/Principal/QuienSoy" routerLinkActive="active-link">Profile</a>
+
+      <!-- solo admin: seccion de aprobacion de profesionales -->
+      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioEnum.Administrador" class="nav-item active">
+        <a class="nav-link" routerLink="/Principal/QuienSoy" routerLinkActive="active-link">Gestión</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/Ranking/Listado" routerLinkActive="active-link">Ranking</a>
+      <!-- solo admin: seccion alta de administradores -->
+      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioEnum.Administrador" class="nav-item active">
+        <a class="nav-link" routerLink="/Ranking/Listado" routerLinkActive="active-link">Administradores</a>
       </li>
 
-      <li class="nav-item">
-        <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
-      </li>
 
     </ul>
 
