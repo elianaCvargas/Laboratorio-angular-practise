@@ -37,6 +37,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { FooterComponent } from './componentes/common/footer/footer.component';
 import { CartelInformeComponent } from './componentes/common/cartel-informe/cartel-informe.component';
 import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
