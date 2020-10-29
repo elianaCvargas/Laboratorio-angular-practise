@@ -15,6 +15,7 @@ import { RegistroUsuarioComponent } from './componentes/login/registro-usuario/r
 import { LoginComponent } from './componentes/login/login.component';
 import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
 import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
+import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'registro', component: RegistroUsuarioComponent },
       { path: 'turnos-paciente', component: TurnosPacienteComponent },
       { path: 'lista-usuarios', component: ListaUsuariosComponent },
+      { path: 'alta-admin', component: AltaAdminComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
   },

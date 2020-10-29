@@ -23,6 +23,7 @@ export class AppHeaderComponent implements OnInit {
 
   logout() {
     localStorage.removeItem("isLogged");
+    localStorage.removeItem("tipoUsuario");
     this.route.navigate(['/login']);
   }
 
