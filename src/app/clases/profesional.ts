@@ -6,9 +6,9 @@ export class Profesional extends Usuario{
   public especialidad: TipoEspecialidad[];
   public habilitado: boolean;
 
-  constructor(nombre: string, apellido: string, email: string, especialidad: TipoEspecialidad[])
+  constructor(nombre: string, apellido: string, email: string, especialidad: TipoEspecialidad[], password: string)
   {
-    super(nombre, apellido, email, TipoUsuario.Profesional);
+    super(nombre, apellido, email, TipoUsuario.Profesional, password);
     this.especialidad = especialidad;
     this.habilitado = false;
   }

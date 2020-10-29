@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
                   return;
                 }
 
-                this.route.navigate(['lista-usuarios']);
+                this.route.navigate(['turnos-paciente']);
                 break;
               case TipoUsuario.Administrador:
                 this.route.navigate(['lista-usuarios']);
@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit {
   }
 
   dummy() {
-    this.usuarioService.create_admin(new Usuario("Admin", "Admin", "Admin", TipoUsuario.Administrador)).then
+    this.usuarioService.create_admin(new Usuario("Admin", "Admin", "carla@gmail.com", TipoUsuario.Administrador, "asdasd")).then
     (
       () => {console.log("success");}
     ).catch((err) => {
