@@ -3,9 +3,12 @@
   <div class="main_container" >
   <app-app-header></app-app-header>
     <div role="main">
-      <router-outlet></router-outlet>
-    </div>
+      <!-- <router-outlet></router-outlet> -->
 
+    <div [@routeAnimations]="prepareRoute(outlet)" >
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </div>
    <!-- aca va el footer -->
   <app-footer></app-footer>
   </div>

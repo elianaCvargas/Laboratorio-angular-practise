@@ -75,7 +75,6 @@ import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.componen
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
@@ -85,7 +84,7 @@ import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.componen
     MatFormFieldModule,
     DemoMaterialModule,
     HttpClientModule
-  ],
+    ],
   providers: [AllServicesService],
   bootstrap: [AppComponent]
 })
