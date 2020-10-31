@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="title-dialog">
+  {{title}}
+</h1>
+
+<hr>
+  <div mat-dialog-content>
+    <!-- <mat-form-field class="example-full-width">
+      <mat-label>Dejar un comentario</mat-label>
+      <input matInput placeholder="Ex. Pizza" value={{comentario}}>
+    </mat-form-field> -->
+    <mat-form-field class="custom-full-width">
+      <mat-label>Dejar un comentario</mat-label>
+      <textarea matInput placeholder="Comentario..." class="textarea-size" [(ngModel)]="comentario"></textarea>
+    </mat-form-field>
+  </div>
+<hr>
+
+<div mat-dialog-actions  id="botonesCentrados">
+  <button mat-raised-button class="btn sid-btn-primary btn-round" style="margin-bottom: 20px;" color="warn" (click)="onConfirm()">Aceptar</button>
+</div>

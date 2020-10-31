@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Documento } from '../clases/documento';
 import { Turnos } from '../clases/turnos';
 import { EstadoTurno } from '../enumClases/estado-turno';
 
@@ -32,7 +33,7 @@ export class TurnosService {
     return turnos;
   }
 
-  public getTurnosDePaciente(email: string): Observable<{ id: string; data: Turnos; }[]> {
+  public getTurnosDePaciente(email: string): Observable<Documento<Turnos>[]> {
     let turnos = this.firestore.collection<Turnos>('turnos', (ref) =>
       ref
         .where('paciente', '==', email)
@@ -44,7 +45,6 @@ export class TurnosService {
       map((results: DocumentChangeAction<Turnos>[]) => {
         return results.map((result) => {
           var data = result.payload.doc.data();
-
           return {
             id: result.payload.doc.id,
             data: {
@@ -58,24 +58,12 @@ export class TurnosService {
           };
         })
       })
-    );
+    )
 
-    // return turnos.valueChanges();
     return registros;
   }
 
-  // read_AllGamesByEmailAndGameName(
-  //   email: string,
-  //   name: string
-  // ): Observable<Juego[]> {
-  //   var juegos = this.firestore.collection<Juego>('juegos', (ref) =>
-  //     ref
-  //       .where('jugador', '==', email)
-  //       .where('nombre', '==', name)
-  //       .orderBy('fecha', 'desc')
-  //   );
-
-  //   return juegos.valueChanges();
-  // }
-
+  public updateRegistroTurnoById(doc: Documento<Turnos>) {
+    this.firestore.doc('turnos/' + doc.id).update({...doc.data});
+  }
 }

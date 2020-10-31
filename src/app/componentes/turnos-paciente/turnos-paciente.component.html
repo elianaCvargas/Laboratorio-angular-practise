@@ -1,6 +1,22 @@
 <mat-card>
-  <h2>Turnos del paciente</h2>
+  <div *ngIf="tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Profesional)">
+    <h2>Turnos del profesional</h2>
+  </div>
+  <div *ngIf="tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)">
+    <h2>Turnos del paciente</h2>
+  </div>
+
+  <button *ngIf="tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Profesional)" mat-raised-button color="accent" arial-label="Cargar Turno" class="button-action" (click)='confirmarTurno("Cargar Turno")'>
+    <!-- <mat-cion>Cargar Turno</mat-cion> -->
+    Cargar Disponibilidad
+  </button>
+  <button *ngIf="tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)" mat-raised-button color="accent" arial-label="Cargar Turno" class="button-action" (click)='inputResenia("Cargar Turno")'>
+    <!-- <mat-cion>Cargar Turno</mat-cion> -->
+    Cargar Turno
+  </button>
 </mat-card>
+
+
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
 
@@ -10,31 +26,32 @@
     <!-- Position Column -->
     <ng-container matColumnDef="profesional">
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Profesional. </th>
-      <td mat-cell *matCellDef="let element"> {{element.profesional}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.data.profesional}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="paciente">
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Paciente </th>
-      <td mat-cell *matCellDef="let element"> {{element.paciente}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.data.paciente}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="diaHora">
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Dia/hora </th>
-      <td mat-cell *matCellDef="let element"> {{element.diaHora}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.data.diaHora}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="estado">
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Estado </th>
-      <td mat-cell *matCellDef="let element"> {{estadoTurnosLabel.get(element.estado)}} </td>
+      <td mat-cell *matCellDef="let element"> {{estadoTurnosLabel.get(element.data.estado)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="reseniaProfesional">
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Resenia Prof. </th>
       <td mat-cell *matCellDef="let element">
-        <button *ngIf="element.reseniaProfesional != ''" mat-icon-button color="primary" arial-label="VerResenia" (click)="mostrarResenia(element.reseniaProfesional)"><mat-cion>Ver Resenia</mat-cion></button>
+        <button *ngIf="element.data.reseniaProfesional != ''" mat-icon-button color="primary" arial-label="Ver" (click)="mostrarResenia(element.data.reseniaProfesional)"><mat-cion>Ver</mat-cion></button>
+        <button *ngIf="element.data.reseniaProfesional == '' && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Profesional)" mat-icon-button color="primary" arial-label="Asignar." (click)="inputResenia(element.id)"><mat-cion>Asignar</mat-cion></button>
       </td>
     </ng-container>
 
@@ -42,19 +59,23 @@
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Resenia Paciente </th>
       <!-- <td mat-cell *matCellDef="let element"> {{element.reseniaPaciente}} </td> -->
       <td mat-cell *matCellDef="let element">
-        <button *ngIf="element.reseniaPaciente != ''" mat-icon-button color="primary" arial-label="VerResenia" (click)="mostrarResenia(element.reseniaPaciente)"><mat-cion>Ver Resenia</mat-cion></button>
+        <button *ngIf="element.data.reseniaPaciente != ''" mat-icon-button color="primary" arial-label="Ver" (click)="mostrarResenia(element.data.reseniaPaciente)"><mat-cion>Ver</mat-cion></button>
+        <button *ngIf="element.data.reseniaPaciente == '' && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)" mat-icon-button color="primary" arial-label="Asignar" (click)="inputResenia(element.id)"><mat-cion>Asignar</mat-cion></button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="confirmar">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <div *ngIf="element.estado === 0">
-          <button mat-raised-button color="accent" arial-label="Confirmar" class="table-button-action" (click)="confirmarTurno()"><mat-cion>Confirmar</mat-cion></button>
-          <button mat-raised-button color="warn" arial-label="Rechazar" class="table-button-action"><mat-cion>Rechazar</mat-cion></button>
+        <div *ngIf="element.data.estado === estadoTurno.Pendiente && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Profesional)">
+          <button mat-raised-button color="accent" arial-label="Confirmar" class="table-button-action" (click)="confirmarTurno(element.id)"><mat-cion>Confirmar</mat-cion></button>
+          <button mat-raised-button color="warn" arial-label="Rechazar" class="table-button-action" (click)="rechazarTurno(element.id)"><mat-cion>Rechazar</mat-cion></button>
         </div>
-        <div *ngIf="element.estado === 1">
-          <button mat-raised-button color="warn" arial-label="Cancelar" class="table-button-action"><mat-cion>Cancelar</mat-cion></button>
+        <div *ngIf="element.data.estado === estadoTurno.Pendiente && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)">
+          <button mat-raised-button color="warn" arial-label="Cancelar" class="table-button-action" (click)="cancelarTurno(element.id)"><mat-cion>Cancelar</mat-cion></button>
+        </div>
+        <div *ngIf="element.data.estado === estadoTurno.Confirmado">
+          <button mat-raised-button color="warn" arial-label="Cancelar" class="table-button-action" (click)="cancelarTurno(element.id)"><mat-cion>Cancelar</mat-cion></button>
         </div>
       </td>
     </ng-container>

@@ -27,6 +27,9 @@ export class AuthService {
         if (err.code == 'auth/wrong-password') {
           this.message = 'Contraseña incorrecta';
         }
+        if (err.code == 'auth/user-not-found') {
+          this.message = 'Usuario o contraseña inválida';
+        }
 
         return Promise.reject(this.message);
       });

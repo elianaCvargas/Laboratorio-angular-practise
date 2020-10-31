@@ -2,7 +2,7 @@
   <h3>Registro</h3>
 </div>
 <mat-form-field class="ddl-tipo-usuario">
-  <mat-select placeholder="Seleccione un tipo de usuario" name="tipoUsuario" [(ngModel)]="tipoUsuario"
+  <mat-select placeholder="Seleccione un tipo de usuario" name="tipoUsuario" [(ngModel)]="tipoUsuarioSeleccionado"
     id="inputSuccess2" required>
     <mat-option *ngFor="let tipoUsuario of tiposUsuariosCombo" [value]="tipoUsuario">
       {{ tipoUsuarioLabel.get(tipoUsuario) }}
@@ -62,6 +62,20 @@
     </div>
   </div>
 
+  <div *ngIf="tipoUsuarioSeleccionado === tiposUsuariosEnum.Profesional" class="input-group form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Especialidad</mat-label>
+      <mat-select formControlName="especialidades" multiple>
+        <mat-option *ngFor="let especialidad of especialidadesCmb" [value]="especialidad">
+          {{ tipoEspecialidadLabel.get(especialidad) }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="especialidadesControl.errors">
+      <div *ngIf="especialidadesControl.errors.especialidadIsNotValid && (especialidadesControl.dirty || especialidadesControl.touched)">
+        <p style="color:red;font-size: 12px;">Debe seleccionar al menos una especialidad del combo</p>
+      </div>
+    </div>
+  </div>
   <div class="input-group form-group">
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fa fa-key"></i></span>
@@ -113,9 +127,9 @@
   </div>
 
 
-  <div *ngIf="this.tipoUsuario === tiposUsuarios.Paciente && this.filesToUpload.length <= 2" class="item form-group">
+  <div *ngIf="this.tipoUsuarioSeleccionado === tiposUsuariosEnum.Paciente" class="item form-group">
     <div class="col-md-12 col-sm-12 ">
-      <div class="row" style="margin-bottom: 20px;">
+      <div *ngIf="filesToUpload.length < 2" class="row" style="margin-bottom: 20px;">
         <div class="col-md"></div>
         <div class="col-md">
           <a>
@@ -124,7 +138,8 @@
           </a>
         </div>
         <div class="col-md">
-          <input type="file" class="hidden" id="file" #fileUploader (change)="handleFileInput($event.target.files)" multiple>
+          <input type="file" class="hidden" id="file" #fileUploader (change)="handleFileInput($event.target.files)"
+            multiple>
         </div>
       </div>
       <ul class="bg-light" *ngFor="let archivo of filesToUpload">
@@ -143,6 +158,7 @@
       </ul>
     </div>
   </div>
+
 
   <div class="form-group">
     <input [disabled]="!userGroup.valid" type="submit" class="btn float-right login_btn" (click)="onSubmit()"

@@ -1,14 +1,15 @@
+import { TipoEspecialidad } from '../enumClases/especialidad-profesional';
 import { TipoUsuario } from '../enumClases/tipo-usuario';
 import { Usuario } from './usuario';
 
-export class Profecional extends Usuario{
-  public especialidad: string;
-  // public email: string;
-  // public tipoUsuario: TipoUsuario;
+export class Profesional extends Usuario{
+  public especialidad: TipoEspecialidad[];
+  public habilitado: boolean;
 
-  constructor(nombre: string, apellido: string, email: string, especialidad: string)
+  constructor(nombre: string, apellido: string, email: string, especialidad: TipoEspecialidad[])
   {
-    super(nombre, apellido, email, TipoUsuario.Paciente);
+    super(nombre, apellido, email, TipoUsuario.Profesional);
     this.especialidad = especialidad;
+    this.habilitado = false;
   }
 }

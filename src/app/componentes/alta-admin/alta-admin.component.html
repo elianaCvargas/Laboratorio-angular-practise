@@ -1,0 +1,84 @@
+<div class="row justify-content-md-center alta-admin-container">
+  <div class="col-8 ">
+    <form [formGroup]="adminGroup">
+
+
+  <div class="form-group">
+    <label>Nombre</label>
+    <input formControlName="nombre" type="text" class="form-control" placeholder="Ingrese un nombre">
+  </div>
+  <div *ngIf="nombreControl.errors">
+    <div *ngIf="nombreControl.errors.required &&
+        (nombreControl.dirty || nombreControl.touched)">
+      <p style="color:red;font-size: 12px;">Debe ingresar un nombre</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label >Apellido</label>
+    <input formControlName="apellido" type="text" class="form-control" placeholder="Ingrese un apellido">
+  </div>
+  <div *ngIf="apellidoControl.errors">
+    <div *ngIf="apellidoControl.errors.required &&
+        (apellidoControl.dirty || apellidoControl.touched)">
+      <p style="color:red;font-size: 12px;">Por favor escriba su apellido</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email/Usuario</label>
+    <input formControlName="email" type="text" class="form-control" placeholder="Ingrese el email">
+  </div>
+  <div *ngIf="email.errors">
+    <div *ngIf="email.errors.required &&
+        (email.dirty || email.touched)">
+      <p style="color:red;font-size: 12px;">Debe ingresar un email</p>
+    </div>
+  </div>
+  <!-- <div *ngIf="email.errors">
+    <div *ngIf="email.errors.email &&
+        (email.dirty || email.touched)">
+      <br>
+      <p style="color:red;font-size: 12px;">Debe ingresar un correo electrónico válido</p>
+    </div>
+  </div> -->
+
+  <div class="form-group">
+    <label>Contraseña</label>
+    <input formControlName="password1" type="text" class="form-control" placeholder="Ingrese contraseña">
+  </div>
+
+  <div class="form-group">
+    <label for="inputAddress2">Contraseña</label>
+    <input formControlName="password2" type="text" class="form-control" placeholder="Ingrese contraseña">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div *ngIf="password2.errors">
+        <div *ngIf="password2.errors.passwordNotMatch &&
+            (password2.dirty || password2.touched || password1.dirty || password1.touched)">
+          <p style="color:red;font-size: 12px;">Las contraseñas no corresponden</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <div *ngIf="(password1.errors && password1.errors.minlength && (password1.dirty || password1.touched)) ||
+            password2.errors && password2.errors.minLength && (password2.dirty || password2.touched)">
+          <p style="color:red;font-size: 12px;">La contraseña debe contener al menos 6 letras</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="password2.errors">
+      <div *ngIf="password2.errors.required &&
+        (password2.dirty || password2.touched)">
+        <p style="color:red;font-size: 12px;">Debe confirmar la contraseña</p>
+      </div>
+    </div>
+  </div>
+  <button [disabled]="!adminGroup.valid"  type="submit" class="btn btn-primary" [formGroup]="adminGroup" >Aceptar</button>
+</form>
+  </div>
+
+</div>
+

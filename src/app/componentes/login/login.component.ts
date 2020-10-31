@@ -2,25 +2,35 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Profesional } from 'src/app/clases/profesional';
+import { Usuario } from 'src/app/clases/usuario';
+import { TipoUsuario, TipoUsuarioLabels } from 'src/app/enumClases/tipo-usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { AvisoDialogModel, CartelInformeComponent } from '../common/cartel-informe/cartel-informe.component';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import {
+  AvisoDialogModel,
+  CartelInformeComponent,
+} from '../common/cartel-informe/cartel-informe.component';
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   public username;
   public password;
   userGroup: FormGroup;
-
-  constructor(private route: Router
-    , private authService: AuthService
-    ,private dialog: MatDialog) {
-
+  public profesional;
+  public tipoUsuarioLabel = TipoUsuarioLabels;
+  constructor(
+    private route: Router,
+    private authService: AuthService,
+    private usuarioService: UsuarioService,
+    private dialog: MatDialog
+  ) {
+    // this.dummy();
   }
 
   ngOnInit() {
@@ -28,38 +38,70 @@ export class LoginComponent implements OnInit {
       username: new FormControl(''),
       password: new FormControl(''),
     });
+
+
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RegistroUsuarioComponent, {
       width: '500px',
-      data: {name: this.username, animal: this.password}
+      data: { name: this.username, animal: this.password },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(localStorage.getItem("isLogged") != undefined)
-      {
+    dialogRef.afterClosed().subscribe((result) => {
+      if (localStorage.getItem('isLogged') != undefined) {
         this.route.navigate(['Juegos']);
       }
     });
   }
 
-  onSubmit()
-  {
+  onSubmit() {
     this.username = this.userGroup.get('username').value;
-    this.password =  this.userGroup.get('password').value;
-    this.authService.login(this.username, this.password).then((response) => {
-      if(response.user.emailVerified)
-      {
-        localStorage.setItem("isLogged", "true");
-        this.route.navigate(['turnos-paciente']);
-      }
-      else {
-        this.showError("Requiere verificación del email.");
-      }
-    }).catch((error) => {
-      this.showError(error);
-    });
+    this.password = this.userGroup.get('password').value;
+
+
+    this.authService
+      .login(this.username, this.password)
+      .then((response) => {
+        this.usuarioService.getUserByEmail(this.username).subscribe(
+          (usuario) => {
+            switch (usuario.data.tipoUsuario) {
+              case TipoUsuario.Paciente:
+                if (!response.user.emailVerified) {
+                  this.showError('Requiere verificación del email.');
+                  return;
+                }
+
+                this.route.navigate(['turnos-paciente']);
+                break;
+              case TipoUsuario.Profesional:
+                this.profesional = usuario.data;
+                if(!this.profesional.habilitado)
+                {
+                  this.showError('Requiere aprobación de un administrador.');
+                  return;
+                }
+
+                this.route.navigate(['lista-usuarios']);
+                break;
+              case TipoUsuario.Administrador:
+                this.route.navigate(['lista-usuarios']);
+                console.log(usuario);
+
+                break;
+            }
+
+            localStorage.setItem('isLogged', 'true');
+            localStorage.setItem('tipoUsuario', this.tipoUsuarioLabel.get(usuario.data.tipoUsuario));
+          },
+          (error) => {
+            this.showError(error);
+          }
+        );
+      })
+      .catch((error) => {
+        this.showError(error);
+      });
   }
 
   public showError(error: string): void {
@@ -79,9 +121,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  registrarse()
-  {}
-  recuperarContra()
-  {}
+  dummy() {
+    this.usuarioService.create_admin(new Usuario("Admin", "Admin", "Admin", TipoUsuario.Administrador)).then
+    (
+      () => {console.log("success");}
+    ).catch((err) => {
+      console.log(err);
+    });
+  }
 
+  recuperarContra() {}
 }

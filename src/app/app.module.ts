@@ -20,7 +20,7 @@ import { TablaPeliculaComponent } from './componentes/common/tabla-pelicula/tabl
 import { BusquedaComponent } from './componentes/layout/busqueda/busqueda.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {DemoMaterialModule} from './material-module';
+import { DemoMaterialModule } from './material-module';
 import { DetalleComponent } from './componentes/layout/busqueda/detalle/detalle.component';
 import { TarjetasComponent } from './componentes/common/tarjetas/tarjetas.component';
 import { TarjetaComponent } from './componentes/common/tarjetas/tarjeta/tarjeta.component';
@@ -36,8 +36,11 @@ import { RegistroUsuarioComponent } from './componentes/login/registro-usuario/r
 import { LoginComponent } from './componentes/login/login.component';
 import { FooterComponent } from './componentes/common/footer/footer.component';
 import { CartelInformeComponent } from './componentes/common/cartel-informe/cartel-informe.component';
+import { CartelInputComponent } from './componentes/common/cartel-input-informe/cartel-input-informe.component';
 import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
-import { MatTableModule } from '@angular/material/table';
+import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
+import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -63,12 +66,14 @@ import { MatTableModule } from '@angular/material/table';
     LoginComponent,
     FooterComponent,
     CartelInformeComponent,
+    CartelInputComponent,
     TurnosPacienteComponent,
-
+    ListaUsuariosComponent,
+    AltaAdminComponent,
   ],
   imports: [
-    MatDatepickerModule,
     BrowserModule,
+    MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -84,6 +89,7 @@ import { MatTableModule } from '@angular/material/table';
     HttpClientModule
   ],
   providers: [AllServicesService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

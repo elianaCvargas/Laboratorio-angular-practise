@@ -9,9 +9,6 @@ import { Paciente } from '../clases/paciente';
   providedIn: 'root'
 })
 export class PacienteService {
-  public title: string;
-  public message: string;
-
   constructor(
     private firestore: AngularFirestore,
     private route: Router,
@@ -20,7 +17,9 @@ export class PacienteService {
 
 
   create_paciente(paciente: Paciente) {
-    return this.firestore.collection('pacientes').add({ ...paciente });
+    return this.firestore.collection('pacientes').add({ ...paciente })
+    .then((data) => { console.log(data)})
+    .catch((data) => { console.log(data)});
   }
 
 
