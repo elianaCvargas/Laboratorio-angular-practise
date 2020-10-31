@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Documento } from 'src/app/clases/documento';
 import { Turnos } from 'src/app/clases/turnos';
 import { EstadoTurno, EstadoTurnoLabels } from 'src/app/enumClases/estado-turno';
+import { TipoUsuario, TipoUsuarioLabels } from 'src/app/enumClases/tipo-usuario';
 import { TurnosService } from 'src/app/servicios/turnos.service';
 import { CartelInformeComponent } from '../common/cartel-informe/cartel-informe.component';
 import { AvisoDialogModel } from '../common/tarjetas/tarjeta/detalle-tarjeta/detalle-tarjeta.component';
@@ -41,6 +42,9 @@ let TURNOS_DATA: Documento<Turnos>[] = [
 export class TurnosPacienteComponent implements OnInit {
   public estadoTurno = EstadoTurno;
   public estadoTurnosLabel = EstadoTurnoLabels;
+  public tipoUsuarioLogged = localStorage.getItem("tipoUsuario");
+  public tipoUsuario = TipoUsuario;
+  public tipoUsuarioLabels = TipoUsuarioLabels;
 
   displayedColumns: string[] = ['profesional', 'paciente', 'diaHora', 'estado', 'reseniaProfesional', 'reseniaPaciente', 'confirmar'];
   dataSource = new MatTableDataSource<Documento<Turnos>>(TURNOS_DATA);
