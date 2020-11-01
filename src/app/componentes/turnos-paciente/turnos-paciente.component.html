@@ -10,11 +10,7 @@
     <!-- <mat-cion>Cargar Turno</mat-cion> -->
     Cargar Disponibilidad
   </button>
-<<<<<<< HEAD
-  <button *ngIf="tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)" mat-raised-button color="accent" arial-label="Cargar Turno" class="button-action" (click)='inputResenia("Cargar Turno")'>
-=======
   <button *ngIf="tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)" mat-raised-button color="accent" arial-label="Cargar Turno" class="button-action" (click)='confirmarTurno("Cargar Turno")'>
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
     <!-- <mat-cion>Cargar Turno</mat-cion> -->
     Cargar Turno
   </button>
@@ -55,11 +51,7 @@
       <th mat-header-cell *matHeaderCellDef class="table-header-title"> Resenia Prof. </th>
       <td mat-cell *matCellDef="let element">
         <button *ngIf="element.data.reseniaProfesional != ''" mat-icon-button color="primary" arial-label="Ver" (click)="mostrarResenia(element.data.reseniaProfesional)"><mat-cion>Ver</mat-cion></button>
-<<<<<<< HEAD
         <button *ngIf="element.data.reseniaProfesional == '' && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Profesional)" mat-icon-button color="primary" arial-label="Asignar." (click)="inputResenia(element.id)"><mat-cion>Asignar</mat-cion></button>
-=======
-        <button *ngIf="element.data.reseniaProfesional == '' && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Profesional)" mat-icon-button color="primary" arial-label="Asignar." (click)="mostrarResenia(element.id)"><mat-cion>Asignar</mat-cion></button>
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
       </td>
     </ng-container>
 
@@ -68,11 +60,7 @@
       <!-- <td mat-cell *matCellDef="let element"> {{element.reseniaPaciente}} </td> -->
       <td mat-cell *matCellDef="let element">
         <button *ngIf="element.data.reseniaPaciente != ''" mat-icon-button color="primary" arial-label="Ver" (click)="mostrarResenia(element.data.reseniaPaciente)"><mat-cion>Ver</mat-cion></button>
-<<<<<<< HEAD
         <button *ngIf="element.data.reseniaPaciente == '' && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)" mat-icon-button color="primary" arial-label="Asignar" (click)="inputResenia(element.id)"><mat-cion>Asignar</mat-cion></button>
-=======
-        <button *ngIf="element.data.reseniaPaciente == '' && tipoUsuarioLogged === tipoUsuarioLabels.get(tipoUsuario.Paciente)" mat-icon-button color="primary" arial-label="Asignar" (click)="mostrarResenia(element.id)"><mat-cion>Asignar</mat-cion></button>
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
       </td>
     </ng-container>
 

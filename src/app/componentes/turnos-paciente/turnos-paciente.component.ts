@@ -8,12 +8,7 @@ import { EstadoTurno, EstadoTurnoLabels } from 'src/app/enumClases/estado-turno'
 import { TipoUsuario, TipoUsuarioLabels } from 'src/app/enumClases/tipo-usuario';
 import { TurnosService } from 'src/app/servicios/turnos.service';
 import { CartelInformeComponent } from '../common/cartel-informe/cartel-informe.component';
-<<<<<<< HEAD
 import { CartelInputComponent, InputDialogModel } from '../common/cartel-input-informe/cartel-input-informe.component';
-import { AvisoDialogModel } from '../common/tarjetas/tarjeta/detalle-tarjeta/detalle-tarjeta.component';
-
-let TURNOS_DATA: Documento<Turnos>[] = [];
-=======
 import { AvisoDialogModel } from '../common/tarjetas/tarjeta/detalle-tarjeta/detalle-tarjeta.component';
 
 let TURNOS_DATA: Documento<Turnos>[] = [
@@ -38,7 +33,6 @@ let TURNOS_DATA: Documento<Turnos>[] = [
     data: {paciente: "paciente@mail.com", profesional: "profesional@mail.com", diaHora: "20/10/20", estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
   }
 ];
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
 
 @Component({
   selector: 'app-turnos-paciente',
@@ -52,19 +46,11 @@ export class TurnosPacienteComponent implements OnInit {
   public tipoUsuarioLogged = localStorage.getItem("tipoUsuario");
   public tipoUsuario = TipoUsuario;
   public tipoUsuarioLabels = TipoUsuarioLabels;
-<<<<<<< HEAD
 
   displayedColumns: string[] = ['profesional', 'paciente', 'diaHora', 'estado', 'reseniaProfesional', 'reseniaPaciente', 'confirmar'];
   dataSource = new MatTableDataSource<Documento<Turnos>>(TURNOS_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-=======
-
-  displayedColumns: string[] = ['profesional', 'paciente', 'diaHora', 'estado', 'reseniaProfesional', 'reseniaPaciente', 'confirmar'];
-  dataSource = new MatTableDataSource<Documento<Turnos>>(TURNOS_DATA);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
   constructor(
     public dialog: MatDialog,
     private turnosService: TurnosService,
@@ -74,7 +60,6 @@ export class TurnosPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTurnosDePaciente("carla.e.vargas@gmail.com");
-<<<<<<< HEAD
   }
 
   public getTurnosDePaciente(paciente: string): void {
@@ -110,43 +95,6 @@ export class TurnosPacienteComponent implements OnInit {
     this.actualizarEstadoTurno(id, this.estadoTurno.Confirmado);
   }
 
-=======
-  }
-
-  public getTurnosDePaciente(paciente: string): void {
-    this.turnosService
-      .getTurnosDePaciente("carla.e.vargas@gmail.com")
-      .subscribe((data) => {
-        // data.forEach((turno) => {
-        //   TURNOS_DATA.push(turno);
-        // });
-        TURNOS_DATA = data;
-        this.refresh(TURNOS_DATA);
-        // this.showSuccess("Turnos cargados con éxito! " + data.length);
-      }, (error) => {
-        // this.showError(error);
-      });
-  }
-
-  refresh(listado: Documento<Turnos>[] = []) {
-    this.dataSource = new MatTableDataSource(listado);
-    this.dataSource.paginator = this.paginator;
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  mostrarResenia(resenia: string)
-  {
-    this.showSuccess(resenia);
-  }
-
-  confirmarTurno(id: string){
-    this.actualizarEstadoTurno(id, this.estadoTurno.Confirmado);
-  }
-
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
   rechazarTurno(id: string){
     this.actualizarEstadoTurno(id, this.estadoTurno.Rechazado);
   }
@@ -158,11 +106,7 @@ export class TurnosPacienteComponent implements OnInit {
   actualizarEstadoTurno(id: string, nuevoEstado: EstadoTurno): void{
     const turno = TURNOS_DATA.find(element => element.id === id);
     turno.data.estado = nuevoEstado;
-<<<<<<< HEAD
     this.turnosService.updateRegistroTurnoById(turno);
-=======
-    this.turnosService.updateEstadoTurno(turno);
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
 
     this.showSuccess("Accion confirmar turno de " + id);
     this.refresh(TURNOS_DATA);
@@ -171,11 +115,7 @@ export class TurnosPacienteComponent implements OnInit {
   actualizarResenia(id: string, nuevoEstado: EstadoTurno): void{
     const turno = TURNOS_DATA.find(element => element.id === id);
     turno.data.estado = nuevoEstado;
-<<<<<<< HEAD
     this.turnosService.updateRegistroTurnoById(turno);
-=======
-    this.turnosService.updateEstadoTurno(turno);
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
 
     this.showSuccess("Accion confirmar turno de " + id);
     this.refresh(TURNOS_DATA);
@@ -188,7 +128,6 @@ export class TurnosPacienteComponent implements OnInit {
       data: dialogData,
     });
   }
-<<<<<<< HEAD
 
   public inputResenia(id: string): void {
     const dialogData = new InputDialogModel('Ingresar Comentario', TURNOS_DATA.find(element => element.id === id));
@@ -199,6 +138,4 @@ export class TurnosPacienteComponent implements OnInit {
       data: dialogData,
     });
   }
-=======
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
 }

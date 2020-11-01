@@ -63,11 +63,7 @@ export class TurnosService {
     return registros;
   }
 
-<<<<<<< HEAD
   public updateRegistroTurnoById(doc: Documento<Turnos>) {
-=======
-  public updateEstadoTurno(doc: Documento<Turnos>) {
->>>>>>> ecc433021a27c7bed9d3dd4c9bb0442faa7a09ef
     this.firestore.doc('turnos/' + doc.id).update({...doc.data});
   }
 }
