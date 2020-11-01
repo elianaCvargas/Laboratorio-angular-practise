@@ -237,7 +237,8 @@ export class RegistroUsuarioComponent implements OnInit {
       this.apellidoControl.value,
       this.email.value,
       '',
-      ''
+      '',
+      this.password1.value
     );
     this.fileService.subirArchivo(this.filesToUpload[0]).subscribe(
       (url1) => {
@@ -265,7 +266,8 @@ export class RegistroUsuarioComponent implements OnInit {
       this.userGroup.controls.nombre.value,
       this.userGroup.controls.apellido.value,
       this.userGroup.controls.email.value,
-      this.especialidadesControl.value
+      this.especialidadesControl.value,
+      this.password1.value
     );
 
     this.usuarioService.create_usuario(nuevoPprofesional)

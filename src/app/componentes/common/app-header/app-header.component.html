@@ -7,9 +7,13 @@
   <div *ngIf="isLoggedIn()" class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li *ngIf="tipoUsuarioLogged && (tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Paciente) || tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Paciente))" class="nav-item active">
-        <a class="nav-link" routerLink="/turnos-paciente" routerLinkActive="active-link">Turnos<span
-            class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/turnos-paciente" routerLinkActive="active-link">Turnos</a>
       </li>
+
+      <li *ngIf="tipoUsuarioLogged && (tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Profesional) || tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Profesional))" class="nav-item active">
+        <a class="nav-link" routerLink="/turnos-paciente" routerLinkActive="active-link">Turnos</a>
+      </li>
+
 
       <!-- solo admin: seccion de aprobacion de profesionales -->
       <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Administrador)" class="nav-item active">

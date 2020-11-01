@@ -22,14 +22,19 @@ const routes: Routes = [
     path: '',component: LayoutComponent,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'registro', component: RegistroUsuarioComponent },
-      { path: 'turnos-paciente', component: TurnosPacienteComponent },
+      { path: 'login', component: LoginComponent, data: {animation: 'Login'} },
+      { path: 'turnos-paciente', component: TurnosPacienteComponent, data: {animation: 'Usuario'} },
+      { path: 'registro', component: RegistroUsuarioComponent},
       { path: 'lista-usuarios', component: ListaUsuariosComponent },
       { path: 'alta-admin', component: AltaAdminComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
+
   },
+  //asi funciona la animacion
+  // { path: 'login', component: LoginComponent, data: {animation: 'Login'} },
+  // { path: 'turnos-paciente', component: TurnosPacienteComponent, data: {animation: 'Usuario'} },
+
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

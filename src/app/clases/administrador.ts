@@ -4,8 +4,8 @@ import { Usuario } from './usuario';
 
 export class Administrador extends Usuario{
 
-  constructor(nombre: string, apellido: string, email: string)
+  constructor(nombre: string, apellido: string, email: string, password: string)
   {
-    super(nombre, apellido, email, TipoUsuario.Profesional);
+    super(nombre, apellido, email, TipoUsuario.Administrador, password);
   }
 }

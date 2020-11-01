@@ -7,9 +7,9 @@ export class Paciente extends Usuario{
   // public email: string;
   // public tipoUsuario: TipoUsuario;
 
-  constructor(nombre: string, apellido: string, email: string, imagenUno: string, imagenDos:string)
+  constructor(nombre: string, apellido: string, email: string, imagenUno: string, imagenDos:string, password: string)
   {
-    super(nombre, apellido, email, TipoUsuario.Paciente);
+    super(nombre, apellido, email, TipoUsuario.Paciente, password);
     this.imagenUno = imagenUno;
     this.imagenDos = imagenDos;
     // this.email = email;
