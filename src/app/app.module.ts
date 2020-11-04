@@ -37,10 +37,13 @@ import { LoginComponent } from './componentes/login/login.component';
 import { FooterComponent } from './componentes/common/footer/footer.component';
 import { CartelInformeComponent } from './componentes/common/cartel-informe/cartel-informe.component';
 import { CartelInputComponent } from './componentes/common/cartel-input-informe/cartel-input-informe.component';
-import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
 import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
 import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ProfesionalMasListadoComponent } from './componentes/profesional-mas-listado/profesional-mas-listado.component';
+import { AltaDisponibilidadProfesionalComponent } from './componentes/profesional-mas-listado/alta-disponibilidad-profesional/alta-disponibilidad-profesional.component';
+import { TurnosComponent } from './componentes/turnos/turnos.component';
+import { HorariosProfesionalComponent } from './componentes/profesional-mas-listado/horarios-profesional/horarios-profesional.component';
 
 @NgModule({
   declarations: [
@@ -67,9 +70,12 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     FooterComponent,
     CartelInformeComponent,
     CartelInputComponent,
-    TurnosPacienteComponent,
+    TurnosComponent,
     ListaUsuariosComponent,
     AltaAdminComponent,
+    ProfesionalMasListadoComponent,
+    AltaDisponibilidadProfesionalComponent,
+    HorariosProfesionalComponent,
   ],
   imports: [
     BrowserModule,

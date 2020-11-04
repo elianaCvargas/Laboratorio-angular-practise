@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
                   return;
                 }
 
-                this.route.navigate(['turnos-paciente']);
+                this.route.navigate(['alta-disponibilidad-turnos']);
                 break;
               case TipoUsuario.Administrador:
                 this.route.navigate(['lista-usuarios']);
@@ -92,6 +92,7 @@ export class LoginComponent implements OnInit {
             }
 
             localStorage.setItem('isLogged', 'true');
+            localStorage.setItem('email', usuario.data.email);
             localStorage.setItem('tipoUsuario', this.tipoUsuarioLabel.get(usuario.data.tipoUsuario));
           },
           (error) => {

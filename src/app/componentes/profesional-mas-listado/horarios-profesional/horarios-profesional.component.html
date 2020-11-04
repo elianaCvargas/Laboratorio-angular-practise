@@ -1,0 +1,49 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef class="table-header-title"> Fecha </th>
+    <td mat-cell *matCellDef="let element"> {{element.data.fecha | date: 'dd/MM/yyyy'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="maniana">
+    <th mat-header-cell *matHeaderCellDef class="table-header-title"> Mañana </th>
+    <td mat-cell *matCellDef="let element">
+      <div *ngIf="element.data.rango[0]" class="form-check form-check-inline">
+
+        <label class="form-check-label" for="inlineCheckbox1">8: 00 - 13: 00 hs</label>
+      </div>
+      <div *ngIf="!element.data.rango[0]" class="form-check form-check-inline">
+
+        <label class="form-check-label" for="inlineCheckbox1">-</label>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tarde">
+    <th mat-header-cell *matHeaderCellDef class="table-header-title"> Tarde </th>
+    <td mat-cell *matCellDef="let element">
+      <div *ngIf="element.data.rango[1]" class="form-check form-check-inline">
+        <label class="form-check-label" for="inlineCheckbox1">13: 00 hs - 16: 00 hs</label>
+      </div>
+      <div *ngIf="!element.data.rango[1]" class="form-check form-check-inline">
+        <label class="form-check-label" for="inlineCheckbox1">-</label>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="noche">
+    <th mat-header-cell *matHeaderCellDef class="table-header-title"> Noche </th>
+    <td mat-cell *matCellDef="let element">
+      <div *ngIf="element.data.rango[2]" class="form-check form-check-inline">
+        <label class="form-check-label" for="inlineCheckbox1">16: 00 hs - 22: 00 hs</label>
+      </div>
+      <div *ngIf="!element.data.rango[2]" class="form-check form-check-inline">
+        <label class="form-check-label" for="inlineCheckbox1">-</label>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 10, 20]" showFirstLastButtons></mat-paginator>

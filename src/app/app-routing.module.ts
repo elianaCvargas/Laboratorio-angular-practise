@@ -13,9 +13,10 @@ import { PeliculaListadoComponent } from './componentes/layout/pelicula-listado/
 import { PaisActorComponent } from './componentes/pais-actor/pais-actor.component';
 import { RegistroUsuarioComponent } from './componentes/login/registro-usuario/registro-usuario.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { TurnosPacienteComponent } from './componentes/turnos-paciente/turnos-paciente.component';
 import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
 import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
+import { ProfesionalMasListadoComponent } from './componentes/profesional-mas-listado/profesional-mas-listado.component';
+import { TurnosComponent } from './componentes/turnos/turnos.component';
 
 const routes: Routes = [
   {
@@ -23,10 +24,11 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent, data: {animation: 'Login'} },
-      { path: 'turnos-paciente', component: TurnosPacienteComponent, data: {animation: 'Usuario'} },
+      { path: 'turnos-paciente', component: TurnosComponent, data: {animation: 'Usuario'} },
       { path: 'registro', component: RegistroUsuarioComponent},
       { path: 'lista-usuarios', component: ListaUsuariosComponent },
       { path: 'alta-admin', component: AltaAdminComponent },
+      { path: 'alta-disponibilidad-turnos', component: ProfesionalMasListadoComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
 

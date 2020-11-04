@@ -10,3 +10,4 @@ export const TipoEspecialidadLabels = new Map<number, string>([
   [TipoEspecialidad.Dentista, 'Dentista'],
   [TipoEspecialidad.Cirugia, 'Cirugia']
 ]);
+

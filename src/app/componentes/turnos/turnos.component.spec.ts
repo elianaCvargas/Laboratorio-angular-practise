@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TurnosPacienteComponent } from './turnos-paciente.component';
+import { TurnosPacienteComponent } from './turnos.component';
 
 describe('TurnosPacienteComponent', () => {
   let component: TurnosPacienteComponent;

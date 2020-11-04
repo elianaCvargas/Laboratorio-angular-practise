@@ -33,10 +33,10 @@ export class TurnosService {
     return turnos;
   }
 
-  public getTurnosDePaciente(email: string): Observable<Documento<Turnos>[]> {
+  public getTurnosByEmailandPerfil(email: string, perfil: string): Observable<Documento<Turnos>[]> {
     let turnos = this.firestore.collection<Turnos>('turnos', (ref) =>
       ref
-        .where('paciente', '==', email)
+        .where(perfil.toLowerCase(), '==', email)
         .orderBy('estado', 'desc')
     );
 

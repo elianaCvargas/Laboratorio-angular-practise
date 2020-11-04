@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -35,12 +35,16 @@ let TURNOS_DATA: Documento<Turnos>[] = [
 ];
 
 @Component({
-  selector: 'app-turnos-paciente',
-  templateUrl: './turnos-paciente.component.html',
-  styleUrls: ['./turnos-paciente.component.scss']
+  selector: 'app-turnos',
+  templateUrl: './turnos.component.html',
+  styleUrls: ['./turnos.component.scss']
 })
 
-export class TurnosPacienteComponent implements OnInit {
+export class TurnosComponent implements OnInit {
+  @Input() listado: any [];
+  dataSource: MatTableDataSource<Turnos>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   public estadoTurno = EstadoTurno;
   public estadoTurnosLabel = EstadoTurnoLabels;
   public tipoUsuarioLogged = localStorage.getItem("tipoUsuario");
@@ -48,8 +52,8 @@ export class TurnosPacienteComponent implements OnInit {
   public tipoUsuarioLabels = TipoUsuarioLabels;
 
   displayedColumns: string[] = ['profesional', 'paciente', 'diaHora', 'estado', 'reseniaProfesional', 'reseniaPaciente', 'confirmar'];
-  dataSource = new MatTableDataSource<Documento<Turnos>>(TURNOS_DATA);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // dataSource = new MatTableDataSource<Documento<Turnos>>(TURNOS_DATA);
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     public dialog: MatDialog,
@@ -59,26 +63,31 @@ export class TurnosPacienteComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getTurnosDePaciente("carla.e.vargas@gmail.com");
+    // var email = localStorage.getItem("email");
+    // if(email == undefined || email == null)
+    // {
+
+    // }
+    // this.getTurnosDePaciente("carla.e.vargas@gmail.com");
   }
 
-  public getTurnosDePaciente(paciente: string): void {
-    this.turnosService
-      .getTurnosDePaciente("carla.e.vargas@gmail.com")
-      .subscribe((data) => {
-        // data.forEach((turno) => {
-        //   TURNOS_DATA.push(turno);
-        // });
-        TURNOS_DATA = data;
-        this.refresh(TURNOS_DATA);
-        // this.showSuccess("Turnos cargados con éxito! " + data.length);
-      }, (error) => {
-        // this.showError(error);
-      });
-  }
+  // public getTurnosDePaciente(paciente: string): void {
+  //   this.turnosService
+  //     .getTurnosDePaciente("carla.e.vargas@gmail.com")
+  //     .subscribe((data) => {
+  //       // data.forEach((turno) => {
+  //       //   TURNOS_DATA.push(turno);
+  //       // });
+  //       TURNOS_DATA = data;
+  //       this.refresh(TURNOS_DATA);
+  //       // this.showSuccess("Turnos cargados con éxito! " + data.length);
+  //     }, (error) => {
+  //       // this.showError(error);
+  //     });
+  // }
 
-  refresh(listado: Documento<Turnos>[] = []) {
-    this.dataSource = new MatTableDataSource(listado);
+  refresh() {
+    this.dataSource = new MatTableDataSource(this.listado);
     this.dataSource.paginator = this.paginator;
   }
 
@@ -109,7 +118,7 @@ export class TurnosPacienteComponent implements OnInit {
     this.turnosService.updateRegistroTurnoById(turno);
 
     this.showSuccess("Accion confirmar turno de " + id);
-    this.refresh(TURNOS_DATA);
+    // this.refresh(TURNOS_DATA);
   }
 
   actualizarResenia(id: string, nuevoEstado: EstadoTurno): void{
@@ -118,7 +127,7 @@ export class TurnosPacienteComponent implements OnInit {
     this.turnosService.updateRegistroTurnoById(turno);
 
     this.showSuccess("Accion confirmar turno de " + id);
-    this.refresh(TURNOS_DATA);
+    // this.refresh(TURNOS_DATA);
   }
 
   public showSuccess(success: string): void {
@@ -138,4 +147,5 @@ export class TurnosPacienteComponent implements OnInit {
       data: dialogData,
     });
   }
+
 }

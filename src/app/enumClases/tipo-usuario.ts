@@ -5,7 +5,7 @@ export enum TipoUsuario{
 }
 
 export const TipoUsuarioLabels = new Map<number, string>([
-  [TipoUsuario.Administrador, 'Administrador'],
+  [TipoUsuario.Profesional, 'Profesional'],
   [TipoUsuario.Paciente, 'Paciente'],
-  [TipoUsuario.Profesional, 'Profesional']
+  [TipoUsuario.Administrador, 'Administrador']
 ]);
