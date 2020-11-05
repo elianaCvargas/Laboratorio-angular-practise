@@ -1,6 +1,9 @@
+import { DateFilterFn } from '@angular/material/datepicker';
+
 export class Horario {
   public profesional: string;
-  public fecha: Date;
+  public fechaDate: Date;
+  public fecha: any;
   public rango: Array<boolean> = [false, false, false];
   public maniana: string;
   public tarde: string;

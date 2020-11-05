@@ -2,8 +2,10 @@ import { EstadoTurno } from '../enumClases/estado-turno';
 
 export class Turnos {
   public profesional: string;
+  public apellido: string;
   public paciente: string;
-  public diaHora: string;
+  public hora: string;
+  public fecha: string;
   public estado: EstadoTurno;
   public reseniaProfesional: string;
   public reseniaPaciente: string;
@@ -11,17 +13,18 @@ export class Turnos {
   constructor(
     profesional: string,
     paciente: string,
-    diaHora: string,
-    estado: EstadoTurno,
-    reseniaProfesional: string,
-    reseniaPaciente: string
-  )
-  {
+    hora: string,
+
+    fecha: string,
+    apellido: string
+  ) {
     this.profesional = profesional;
     this.paciente = paciente;
-    this.diaHora = diaHora;
-    this.estado = estado;
-    this.reseniaProfesional = reseniaProfesional;
-    this.reseniaPaciente = reseniaPaciente;
+    this.hora = hora;
+    this.estado = EstadoTurno.Pendiente;
+    this.reseniaProfesional = "";
+    this.reseniaPaciente = "";
+    this.fecha = fecha;
+    this.apellido= apellido;
   }
 }

@@ -17,6 +17,7 @@ import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuar
 import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
 import { ProfesionalMasListadoComponent } from './componentes/profesional-mas-listado/profesional-mas-listado.component';
 import { TurnosComponent } from './componentes/turnos/turnos.component';
+import { TurnoMasListadoComponent } from './componentes/turno-mas-listado/turno-mas-listado.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
       { path: 'registro', component: RegistroUsuarioComponent},
       { path: 'lista-usuarios', component: ListaUsuariosComponent },
       { path: 'alta-admin', component: AltaAdminComponent },
-      { path: 'alta-disponibilidad-turnos', component: ProfesionalMasListadoComponent },
+      { path: 'horarios-profesional', component: ProfesionalMasListadoComponent },
+      { path: 'turnos', component: TurnoMasListadoComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
 

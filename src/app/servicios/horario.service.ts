@@ -29,11 +29,13 @@ export class HorarioService {
     .pipe(
       map((results: DocumentChangeAction<Horario>[]) => results.map((result) => {
         var data = result.payload.doc.data();
+        var dateAux = new Date(data.fecha.seconds * 1000);
         return {
           id: result.payload.doc.id,
           data: {
             profesional: data.profesional,
-            fecha: new Date(data.fecha.seconds * 1000),
+            fecha: dateAux,
+            fechaDate: dateAux,
             rango: data.rango
           } as Horario,
         };
@@ -42,5 +44,7 @@ export class HorarioService {
 
     return registros;
   }
+
+
 
 }

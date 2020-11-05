@@ -44,6 +44,8 @@ import { ProfesionalMasListadoComponent } from './componentes/profesional-mas-li
 import { AltaDisponibilidadProfesionalComponent } from './componentes/profesional-mas-listado/alta-disponibilidad-profesional/alta-disponibilidad-profesional.component';
 import { TurnosComponent } from './componentes/turnos/turnos.component';
 import { HorariosProfesionalComponent } from './componentes/profesional-mas-listado/horarios-profesional/horarios-profesional.component';
+import { TurnoMasListadoComponent } from './componentes/turno-mas-listado/turno-mas-listado.component';
+import { AltaTurnoComponent } from './componentes/turno-mas-listado/alta-turno/alta-turno.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { HorariosProfesionalComponent } from './componentes/profesional-mas-list
     ProfesionalMasListadoComponent,
     AltaDisponibilidadProfesionalComponent,
     HorariosProfesionalComponent,
+    TurnoMasListadoComponent,
+    AltaTurnoComponent,
   ],
   imports: [
     BrowserModule,

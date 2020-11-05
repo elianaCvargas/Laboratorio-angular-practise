@@ -14,23 +14,23 @@ import { AvisoDialogModel } from '../common/tarjetas/tarjeta/detalle-tarjeta/det
 let TURNOS_DATA: Documento<Turnos>[] = [
   {
     id: "A000001",
-    data: {paciente: "paciente@mail.com", profesional: "profesional@mail.com", diaHora: "20/10/20", estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
+    data: {paciente: "paciente@mail.com", apellido: 'apellido', profesional: "profesional@mail.com", fecha: "20/10/20", hora: '00:30', estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
   },
   {
     id: "A000002",
-    data: {paciente: "paciente@mail.com", profesional: "profesional@mail.com", diaHora: "20/10/20", estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
+    data: {paciente: "paciente@mail.com", apellido: 'apellido', profesional: "profesional@mail.com", fecha: "20/10/20", hora: '00:30', estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
   },
   {
     id: "C000003",
-    data: {paciente: "paciente@mail.com", profesional: "profesional@mail.com", diaHora: "20/10/20", estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
+    data: {paciente: "paciente@mail.com", apellido: 'apellido', profesional: "profesional@mail.com", fecha: "20/10/20", hora: '00:30', estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
   },
   {
     id: "A000004",
-    data: {paciente: "paciente@mail.com", profesional: "profesional@mail.com", diaHora: "20/10/20", estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
+    data: {paciente: "paciente@mail.com", apellido: 'apellido', profesional: "profesional@mail.com", fecha: "20/10/20", hora: '00:30', estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
   },
   {
     id: "D000005",
-    data: {paciente: "paciente@mail.com", profesional: "profesional@mail.com", diaHora: "20/10/20", estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente "}
+    data: {paciente: "paciente@mail.com", apellido: 'apellido', profesional: "profesional@mail.com", fecha: "20/10/20", hora: '00:30', estado: 1, reseniaProfesional: "Pendiente", reseniaPaciente: "Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente Pendiente " }
   }
 ];
 

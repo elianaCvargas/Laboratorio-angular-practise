@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Especialidad } from 'src/app/clases/especialidad';
 import { Profesional } from 'src/app/clases/profesional';
 import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario, TipoUsuarioLabels } from 'src/app/enumClases/tipo-usuario';
+import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import {
@@ -28,9 +30,12 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private authService: AuthService,
     private usuarioService: UsuarioService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private admin: AdministradorService
   ) {
     // this.dummy();
+
+    // this.admin.create_especialidad(new Especialidad("Dentista"));
   }
 
   ngOnInit() {
@@ -82,7 +87,7 @@ export class LoginComponent implements OnInit {
                   return;
                 }
 
-                this.route.navigate(['alta-disponibilidad-turnos']);
+                this.route.navigate(['turnos-paciente']);
                 break;
               case TipoUsuario.Administrador:
                 this.route.navigate(['lista-usuarios']);
@@ -93,6 +98,8 @@ export class LoginComponent implements OnInit {
 
             localStorage.setItem('isLogged', 'true');
             localStorage.setItem('email', usuario.data.email);
+            localStorage.setItem('nombre', usuario.data.nombre);
+            localStorage.setItem('apellido', usuario.data.apellido);
             localStorage.setItem('tipoUsuario', this.tipoUsuarioLabel.get(usuario.data.tipoUsuario));
           },
           (error) => {
