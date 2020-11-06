@@ -1,6 +1,8 @@
 import { getLocaleExtraDayPeriodRules } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Documento } from 'src/app/clases/documento';
 import { Especialidad } from 'src/app/clases/especialidad';
 import { Horario } from 'src/app/clases/horario';
@@ -20,10 +22,15 @@ export class AltaTurnoComponent implements OnInit {
   public nombreCompleto: string;
   public especialidadSeleccionada: string;
   public especialidadesCombo: Array<Documento<Especialidad>>
+  public profesionalSeleccionado: string;
+  public profesionalesCombo: Array<Documento<Especialidad>>
+
   public profesionales: Array<Documento<Profesional>>;
   public horarios: Array<Documento<Horario>>;
   public email: string;
-  public turnos: Array<Turnos>;
+  public turnos: Array<Turnos> = [];
+  dataSource: MatTableDataSource<Turnos>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['profesional', 'fecha', 'hora'];
 
 
@@ -44,6 +51,7 @@ export class AltaTurnoComponent implements OnInit {
       (data) => { this.especialidadesCombo = data },
       (error) => { console.log(error)}
     );
+    this.refresh();
   }
 
   agregarTurno() {
@@ -52,25 +60,44 @@ export class AltaTurnoComponent implements OnInit {
 
   buscarProfesional(especialidad)
   {
-      this.profesionalService.getAllProfesionalesByEspecialidad(especialidad.value.data.tipoEspecialidad)
+     var especialidadNumber = parseInt(especialidad.value.data.tipoEspecialidad);
+     //obtengo todos los profesionales que haya por especialidad
+      this.profesionalService.getAllProfesionalesByEspecialidad(especialidadNumber)
       .subscribe((profesionales) => {
         for (let i = 0; i < profesionales.length; i++) {
           const profesional = profesionales[i].data;
-          this.horarioService.getHorariosByEmail("profesional", profesional.email)
+          //Ya tengo los profesionales con la especialidad seleccionada
+          this.horarioService.getHorariosByEmail( profesional.email, "profesional")
           .subscribe((horarios: Documento<Horario>[]) => {
+            //obtengo los horarios cargados de los  profesional
               this.turnosService.getAllTurnosByApellidoProfesional(profesional.apellido)
               .subscribe((turnos: Documento<Turnos>[]) => {
                 const turnosDisponibles = this.crearTurnosDisponibles(turnos, horarios);
-                this.turnos = turnosDisponibles.map(turnosDisponible => {
-                 return new Turnos(
+                // this.turnos = turnosDisponibles
+                turnosDisponibles.forEach((turno) => {
+                  this.turnos.push(new Turnos(
                     profesional.email,
                     this.email,
-                    turnosDisponible.hora,
-                    turnosDisponible.fecha,
+                    turno.hora,
+                    turno.fecha,
                     profesional.apellido
-                  );
+                   ))
                 });
+
+                // turnosDisponibles.map(turnosDisponible => {
+                //  return new Turnos(
+                //     profesional.email,
+                //     this.email,
+                //     turnosDisponible.hora,
+                //     turnosDisponible.fecha,
+                //     profesional.apellido
+                //   );
+                // });
+                    this.refresh();
               });
+
+
+
           },
 
           (error) => console.log(error));
@@ -88,8 +115,9 @@ export class AltaTurnoComponent implements OnInit {
         const horasTurno = this.getTurnosEntreHoras(8, 13);
         for (const horaTurno of horasTurno) {
           if(!turnos.find(x => x.data.hora == horaTurno)) {
+            // var fechaDate = new Date(horario.data.fecha.getMonth(), );
             turnosDisponibles.push({
-              fecha: horario.data.fecha,
+              fecha: horario.data.fecha.getDay().toString() + "/" + horario.data.fecha.getMonth().toString() + "/" + horario.data.fecha.getFullYear().toString(),
               hora: horaTurno
             });
           }
@@ -102,16 +130,18 @@ export class AltaTurnoComponent implements OnInit {
 
   getTurnosEntreHoras(hora1: number, hora2: number): Array<string> {
     const turnos = [];
-    for (let i = hora1; i < hora2; i+=0.5) {
-      const horaString = i < 10 ? i.toString() : '0' + i.toString();
-      const minutoString = i.toString()[2] == '5' ? '30' : '00';
-      turnos.push(`"${horaString}:${minutoString}"`);
+    for (let i = hora1; i < hora2; i++) {
+      turnos.push(`${i}:00`);
+      turnos.push(`${i}:30`);
     }
 
     return turnos;
   }
 
-
+  refresh() {
+    this.dataSource = new MatTableDataSource(this.turnos);
+    this.dataSource.paginator = this.paginator;
+  }
 
   // buscarHorariosPorProfesional(email: string)
   // {

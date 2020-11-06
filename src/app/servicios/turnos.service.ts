@@ -103,7 +103,7 @@ export class TurnosService {
     let turnos = this.firestore.collection<Turnos>('turnos', (ref) =>
       ref
         .where('apellido', '==', apellido)
-        .orderBy('apellido', 'desc')
+        // .orderBy('apellido', 'desc')
     );
 
     let registros = turnos.snapshotChanges()

@@ -23,11 +23,11 @@ export class ProfesionalService {
     .catch((data) => { console.log(data)});
   }
 
-  public getAllProfesionalesByEspecialidad(especialidad: TipoEspecialidad): Observable<Documento<Profesional>[]> {
+  public getAllProfesionalesByEspecialidad(especialidad: number): Observable<Documento<Profesional>[]> {
     let turnos = this.firestore.collection<Usuario>('usuarios', (ref) =>
       ref
         .where('especialidad', 'array-contains', especialidad)
-        .orderBy('nombre', 'desc')
+        // .orderBy('nombre', 'desc')
     );
 
     let registros = turnos.snapshotChanges()
