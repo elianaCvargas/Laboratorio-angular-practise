@@ -30,7 +30,7 @@ const routes: Routes = [
       { path: 'lista-usuarios', component: ListaUsuariosComponent },
       { path: 'alta-admin', component: AltaAdminComponent },
       { path: 'horarios-profesional', component: ProfesionalMasListadoComponent },
-      { path: 'turnos', component: TurnoMasListadoComponent },
+      { path: 'turnos', component: TurnoMasListadoComponent , data: {animation: 'Usuario'}},
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
 

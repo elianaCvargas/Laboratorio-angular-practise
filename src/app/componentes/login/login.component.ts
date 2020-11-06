@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
                   return;
                 }
 
-                this.route.navigate(['turnos-paciente']);
+                this.route.navigate(['turnos']);
                 break;
               case TipoUsuario.Administrador:
                 this.route.navigate(['lista-usuarios']);
