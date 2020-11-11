@@ -8,34 +8,53 @@ import { Especialidad } from 'src/app/clases/especialidad';
 import { Horario } from 'src/app/clases/horario';
 import { Profesional } from 'src/app/clases/profesional';
 import { Turnos } from 'src/app/clases/turnos';
+import { TurnosDisponibles } from 'src/app/clases/turnosDisponibles';
+import { EspecialidadesService } from 'src/app/servicios/especialidades.service';
 import { HorarioService } from 'src/app/servicios/horario.service';
 import { ProfesionalService } from 'src/app/servicios/profesional.service';
 import { TurnosService } from 'src/app/servicios/turnos.service';
+import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { ProfesionalesComponent } from './profesionales/profesionales.component';
 
 @Component({
   selector: 'app-alta-turno',
   templateUrl: './alta-turno.component.html',
-  styleUrls: ['./alta-turno.component.scss']
+  styleUrls: ['./alta-turno.component.scss'],
 })
 export class AltaTurnoComponent implements OnInit {
   turnoGroup: FormGroup;
   public nombreCompleto: string;
   public especialidadSeleccionada: string;
-  public especialidadesCombo: Array<Documento<Especialidad>>
+  // public especialidadesCombo: Array<Documento<Especialidad>>
   public profesionalSeleccionado: string;
-  public profesionalesCombo: Array<Documento<Especialidad>>
+  public profesionalesCombo: Array<Documento<Profesional>>;
 
   public profesionales: Array<Documento<Profesional>>;
   public horarios: Array<Documento<Horario>>;
   public email: string;
+  public turnosDisponibles: Array<TurnosDisponibles>;
+
+  //lo uso para compartir
   public turnos: Array<Turnos> = [];
+
   dataSource: MatTableDataSource<Turnos>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['profesional', 'fecha', 'hora'];
 
+  public especialidadesParaCompartir: Array<Documento<Especialidad>>;
 
-  constructor(public builder: FormBuilder, private turnosService: TurnosService, private profesionalService: ProfesionalService
-    , private horarioService: HorarioService, private turnoService: TurnosService) {
+  public profesionalesParaCompartir: Array<Documento<Profesional>> = [];
+  public turnosParaCompartir: Array<Turnos> = [];
+
+  constructor(
+    public builder: FormBuilder,
+    private turnosService: TurnosService,
+    private profesionalService: ProfesionalService,
+    private horarioService: HorarioService,
+    private especialidadService: EspecialidadesService
+  ) {
+    this.especialidadesParaCompartir = new Array<Documento<Especialidad>>();
+    this.turnosDisponibles = new Array<TurnosDisponibles>();
     // this.turnoGroup = this.builder.group({
     //   profesional: [null, Validators.required],
     //   fecha: [null, Validators.required],
@@ -45,80 +64,107 @@ export class AltaTurnoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nombreCompleto = localStorage.getItem("nombre") + " " + localStorage.getItem("apellido");
-    this.email = localStorage.getItem("email");
-    this.turnosService.getAllEspecialidades().subscribe(
-      (data) => { this.especialidadesCombo = data },
-      (error) => { console.log(error)}
-    );
-    this.refresh();
-  }
-
-  agregarTurno() {
-
-  }
-
-  buscarProfesional(especialidad)
-  {
-     var especialidadNumber = parseInt(especialidad.value.data.tipoEspecialidad);
-     //obtengo todos los profesionales que haya por especialidad
-      this.profesionalService.getAllProfesionalesByEspecialidad(especialidadNumber)
-      .subscribe((profesionales) => {
-        for (let i = 0; i < profesionales.length; i++) {
-          const profesional = profesionales[i].data;
-          //Ya tengo los profesionales con la especialidad seleccionada
-          this.horarioService.getHorariosByEmail( profesional.email, "profesional")
-          .subscribe((horarios: Documento<Horario>[]) => {
-            //obtengo los horarios cargados de los  profesional
-              this.turnosService.getAllTurnosByApellidoProfesional(profesional.apellido)
-              .subscribe((turnos: Documento<Turnos>[]) => {
-                const turnosDisponibles = this.crearTurnosDisponibles(turnos, horarios);
-                // this.turnos = turnosDisponibles
-                turnosDisponibles.forEach((turno) => {
-                  this.turnos.push(new Turnos(
-                    profesional.email,
-                    this.email,
-                    turno.hora,
-                    turno.fecha,
-                    profesional.apellido
-                   ))
-                });
-
-                // turnosDisponibles.map(turnosDisponible => {
-                //  return new Turnos(
-                //     profesional.email,
-                //     this.email,
-                //     turnosDisponible.hora,
-                //     turnosDisponible.fecha,
-                //     profesional.apellido
-                //   );
-                // });
-                    this.refresh();
-              });
-
-
-
-          },
-
-          (error) => console.log(error));
-
-        }
-
+    this.nombreCompleto =
+      localStorage.getItem('nombre') + ' ' + localStorage.getItem('apellido');
+    this.email = localStorage.getItem('email');
+    this.especialidadService.getAllEspecialidades().subscribe(
+      (data) => {
+        this.especialidadesParaCompartir = data;
+      },
+      (error) => {
+        console.log(error);
       }
-      , (error) => console.log(error));
+    );
+    // this.refresh();
   }
 
-  crearTurnosDisponibles(turnos: Documento<Turnos>[], horarios: Documento<Horario>[]): Array<{fecha: string, hora: string}> {
+  agregarTurno() {}
+
+  buscarProfesional(especialidad) {
+    var especialidadNumber = parseInt(especialidad.data.tipoEspecialidad);
+    //obtengo todos los profesionales que haya por especialidad
+    this.profesionalService
+      .getAllProfesionalesByEspecialidad(especialidadNumber)
+      .subscribe(
+        (profesionales) => {
+          this.profesionalesParaCompartir = profesionales;
+
+          for (let i = 0; i < profesionales.length; i++) {
+            const profesional = profesionales[i].data;
+            //Ya tengo los profesionales con la especialidad seleccionada
+            this.horarioService
+              .getHorariosByEmail(profesional.email, 'profesional')
+              .subscribe(
+                (horarios: Documento<Horario>[]) => {
+                  //obtengo los horarios cargados de los  profesional
+                  this.turnosService
+                    .getAllTurnosByApellidoProfesional(profesional.apellido)
+                    .subscribe((turnos: Documento<Turnos>[]) => {
+                      const turnosDisponibles = this.crearTurnosDisponibles(
+                        turnos,
+                        horarios
+                      );
+
+                      // turnosDisponibles.forEach((turno) => {
+                      //   this.turnos.push(
+                      //     new Turnos(
+                      //       profesional.email,
+                      //       this.email,
+                      //       turno.hora,
+                      //       turno.fecha,
+                      //       profesional.apellido
+                      //     )
+                      //   );
+                      // });
+                      this.armarTurnosHasta15Dias(turnosDisponibles);
+                      this.refresh();
+                    });
+                },
+
+                (error) => console.log(error)
+              );
+          }
+        },
+        (error) => console.log(error)
+      );
+  }
+
+  crearTurnosDisponibles(
+    turnos: Documento<Turnos>[],
+    horarios: Documento<Horario>[]
+  ): Array<string> {
     const turnosDisponibles = [];
     for (const horario of horarios) {
-      if(horario.data.rango[0]) {
+      if (horario.data.rango[0]) {
         const horasTurno = this.getTurnosEntreHoras(8, 13);
         for (const horaTurno of horasTurno) {
-          if(!turnos.find(x => x.data.hora == horaTurno)) {
-            // var fechaDate = new Date(horario.data.fecha.getMonth(), );
+          if (!turnos.find((x) => x.data.hora == horaTurno)) {
+
+            // turnosDisponibles.push({
+            //   hora: horaTurno,
+            // });
+            turnosDisponibles.push(horaTurno);
+          }
+        }
+      }
+    }
+
+    return turnosDisponibles;
+  }
+
+  crearTurnosDisponibleJave(
+    turnos: Documento<Turnos>[],
+    horarios: Documento<Horario>[]
+  ): Array<{ fecha: string; hora: string }> {
+    const turnosDisponibles = [];
+    for (const horario of horarios) {
+      if (horario.data.rango[0]) {
+        const horasTurno = this.getTurnosEntreHoras(8, 13);
+        for (const horaTurno of horasTurno) {
+          if (!turnos.find((x) => x.data.hora == horaTurno)) {
+
             turnosDisponibles.push({
-              fecha: horario.data.fecha.getDay().toString() + "/" + horario.data.fecha.getMonth().toString() + "/" + horario.data.fecha.getFullYear().toString(),
-              hora: horaTurno
+              hora: horaTurno,
             });
           }
         }
@@ -139,12 +185,26 @@ export class AltaTurnoComponent implements OnInit {
   }
 
   refresh() {
-    this.dataSource = new MatTableDataSource(this.turnos);
-    this.dataSource.paginator = this.paginator;
+    this.turnosParaCompartir = this.turnos;
   }
 
-  // buscarHorariosPorProfesional(email: string)
-  // {
-  //     this.
-  // }
+  armarTurnosHasta15Dias(horas: Array<string>)
+  {
+    const diasAagregar = 15;
+    var fechaActual = new Date();
+    var hoy = new Date();
+    var fechaSiguiente = new Date(fechaActual.setDate(fechaActual.getDate() + diasAagregar));
+    for (let i = hoy; i <= fechaSiguiente; i.setDate(i.getDate() + 1)) {
+      console.log(i);
+      // this.turnosDisponibles.push(
+      //   new TurnosDisponibles()
+      //   {
+      //     dia =
+      //   }
+      // );
+
+    }
+
+
+  }
 }

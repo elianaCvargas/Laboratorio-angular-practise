@@ -46,6 +46,11 @@ import { TurnosComponent } from './componentes/turnos/turnos.component';
 import { HorariosProfesionalComponent } from './componentes/profesional-mas-listado/horarios-profesional/horarios-profesional.component';
 import { TurnoMasListadoComponent } from './componentes/turno-mas-listado/turno-mas-listado.component';
 import { AltaTurnoComponent } from './componentes/turno-mas-listado/alta-turno/alta-turno.component';
+import { EspecialidadesComponent } from './componentes/turno-mas-listado/alta-turno/especialidades/especialidades.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProfesionalesComponent } from './componentes/turno-mas-listado/alta-turno/profesionales/profesionales.component';
+import { TurnosPorProfesionalComponent } from './componentes/turno-mas-listado/alta-turno/turnos-por-profesional/turnos-por-profesional.component';
+
 
 @NgModule({
   declarations: [
@@ -80,6 +85,9 @@ import { AltaTurnoComponent } from './componentes/turno-mas-listado/alta-turno/a
     HorariosProfesionalComponent,
     TurnoMasListadoComponent,
     AltaTurnoComponent,
+    EspecialidadesComponent,
+    ProfesionalesComponent,
+    TurnosPorProfesionalComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +103,8 @@ import { AltaTurnoComponent } from './componentes/turno-mas-listado/alta-turno/a
     BrowserAnimationsModule,
     MatFormFieldModule,
     DemoMaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
     ],
   providers: [AllServicesService],
   bootstrap: [AppComponent],

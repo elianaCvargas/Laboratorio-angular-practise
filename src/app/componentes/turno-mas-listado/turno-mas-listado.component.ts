@@ -11,9 +11,11 @@ import { TurnosComponent } from '../turnos/turnos.component';
 export class TurnoMasListadoComponent implements OnInit {
   public listadoParaCompartir: Array<Documento<Turnos>>;
     @ViewChild('listadoResultados') listadoResultados: TurnosComponent;
+  public tipoUsuario: string;
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

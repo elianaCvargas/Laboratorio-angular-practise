@@ -9,6 +9,7 @@ export class Turnos {
   public estado: EstadoTurno;
   public reseniaProfesional: string;
   public reseniaPaciente: string;
+  public dia: number;
 
   constructor(
     profesional: string,

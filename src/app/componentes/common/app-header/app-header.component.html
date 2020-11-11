@@ -22,6 +22,11 @@
       <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Administrador)" class="nav-item active">
         <a class="nav-link" routerLink="/Principal/QuienSoy" routerLinkActive="active-link">Gestión</a>
       </li>
+
+      <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Administrador)" class="nav-item active">
+        <a class="nav-link" routerLink="/especialidades" routerLinkActive="active-link">Especialidades</a>
+      </li>
+
       <!-- solo admin: seccion alta de administradores -->
       <li *ngIf="tipoUsuarioLogged && tipoUsuarioLogged === tipoUsuarioLabel.get(tipoUsuarioEnum.Administrador)" class="nav-item active">
         <a class="nav-link" routerLink="/alta-admin" routerLinkActive="active-link">Administradores</a>

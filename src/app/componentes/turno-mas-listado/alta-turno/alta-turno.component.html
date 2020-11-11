@@ -1,46 +1,13 @@
-<div class="row justify-content-md-center alta-admin-container">
-  <div class="col-8 ">
-    <h1 style="text-align: center;">Alta turno</h1>
+<h1 style="text-align: center;">Alta turno</h1>
+<div class="row justify-content-md-center alta-turno-container">
+    <div class="col-3">
+        <app-especialidades [listado]="especialidadesParaCompartir" (buscarProfesionalPorEspecialidad)="buscarProfesional($event)"></app-especialidades>
+    </div>
+    <div class="col-4">
+      <app-profesionales [listado]="profesionalesParaCompartir"></app-profesionales>
+    </div>
 
-    <mat-form-field class="ddl-especialidad">
-      <mat-select (selectionChange)="buscarProfesional($event)" placeholder="Seleccione una especialidad"
-        name="especialidad" [(ngModel)]="especialidadSeleccionada" id="inputSuccess2" required>
-        <mat-option *ngFor="let especialidad of especialidadesCombo" [value]="especialidad">
-          {{ especialidad.data.nombre }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="ddl-profesional">
-      <mat-select (selectionChange)="buscarProfesional($event)" placeholder="Seleccione una profesional"
-        name="profesional" [(ngModel)]="profesionalSeleccionado" id="inputSuccess2" required>
-        <mat-option *ngFor="let profesional of profesionalesCombo" [value]="profesional">
-          {{ profesional.data.nombre }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
-      <ng-container matColumnDef="profesional">
-        <th mat-header-cell *matHeaderCellDef class="table-header-title"> Profesional </th>
-        <td mat-cell *matCellDef="let element"> {{element.profesional}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef class="table-header-title"> Fecha </th>
-        <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="hora">
-        <th mat-header-cell *matHeaderCellDef class="table-header-title"> Hora </th>
-        <td mat-cell *matCellDef="let element"> {{element.hora}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-  </div>
-
+    <div class="col-5">
+      <app-profesionales [listado]="profesionalesParaCompartir"></app-profesionales>
+    </div>
 </div>

@@ -1,0 +1,9 @@
+<div class="list-group">
+  <button *ngFor="let especialidad of listado" type="button" class="list-group-item list-group-item-action"
+   (click)="buscarProfesionalesPorEspecialidad(especialidad)">
+    <img src="assets/imagenes/quiensoy.jpg" class="especialidades-img"/>
+    {{ especialidad.data.nombre }}
+  </button>
+</div>
+
+

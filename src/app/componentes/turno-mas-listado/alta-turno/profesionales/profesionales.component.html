@@ -1,0 +1,6 @@
+<div class="list-group">
+  <button *ngFor="let profesional of listado" type="button" class="list-group-item list-group-item-action">
+    <img src="assets/imagenes/quiensoy.jpg" class="profesionales-img"/>
+    {{ profesional.data.nombre }}, {{ profesional.data.apellido }} - {{ profesional.data.email}}
+  </button>
+</div>
